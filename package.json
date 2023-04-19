@@ -1,0 +1,20 @@
+{
+  "name": "app-analyzer",
+  "type": "module",
+  "scripts": {
+    "start": " tsc && tsc-alias && node dist/index.js",
+    "build": "tsc && tsc-alias",
+    "build:watch": "tsc && (concurrently \"tsc -w\" \"tsc-alias -w\")"
+  },
+  "dependencies": {
+    "@types/node": "^18.15.11",
+    "concurrently": "^8.0.1",
+    "google-play-scraper": "^9.1.1",
+    "install": "^0.13.0",
+    "moment": "^2.29.4",
+    "npm": "^9.6.4",
+    "tsc-alias": "^1.8.5",
+    "typescript": "^5.0.2",
+    "yargs": "^17.7.1"
+  }
+}
