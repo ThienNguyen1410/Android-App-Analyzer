@@ -1,0 +1,35 @@
+export interface IAppInfo {
+  title: string;
+  appId: string;
+  url: string;
+  updated: string;
+  recentChanges: string;
+  version: string;
+  released: string;
+  adSupported: string;
+  summary: string;
+  installs: string;
+  minInstalls: string;
+  maxInstalls: string;
+  score: string;
+  scoreText: string;
+  ratings: string;
+  reviews: string;
+  histogram: string;
+  price: string;
+  free: string;
+  currency: string;
+  priceText: string;
+  available: string;
+  offersIAP: string;
+  IAPRange: string;
+  androidVersion: string;
+  developer: string;
+  developerId: string;
+  developerEmail: string;
+  developerWebsite: string;
+  developerAddress: string;
+  genre: string;
+  genreId: string;
+  familyGenre: string;
+}
