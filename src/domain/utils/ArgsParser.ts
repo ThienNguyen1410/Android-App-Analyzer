@@ -7,6 +7,7 @@ interface Args {
   collection?: string;
   categories?: boolean;
   collections?: boolean;
+  download?: boolean;
 }
 
 export const ArgsParser: Args = yargs(process.argv.slice(2))
@@ -42,6 +43,12 @@ export const ArgsParser: Args = yargs(process.argv.slice(2))
   .option("collections", {
     alias: "cols",
     describe: `List all collection of app on play store`,
+    type: "boolean",
+    demandoption: false,
+  })
+  .option("download", {
+    alias: "d",
+    describe: `Download apk`,
     type: "boolean",
     demandoption: false,
   })
