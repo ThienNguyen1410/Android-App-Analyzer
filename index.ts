@@ -22,7 +22,7 @@ const searchPackage = () => {
           console.log(
             "----------------------------------------------------------------------------------------------------------"
           );
-          console.log(appItem.appId);
+          console.log(appItem);
 
           APKPureRepo.downloadAPK(appItem.appId, appItem.title)
             .then()
