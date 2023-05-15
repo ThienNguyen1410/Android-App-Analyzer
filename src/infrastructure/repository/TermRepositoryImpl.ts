@@ -15,4 +15,24 @@ export class TermRepositoryImpl implements ITerm {
       return false;
     }
   }
+
+  async mkdir(name: string): Promise<boolean> {
+    try {
+      await callAsync(`mkdir apks/${name}`);
+      return true;
+    } catch (error) {
+      console.log("Mkdir Failed ! ", error);
+      return false;
+    }
+  }
+
+  async search(key: string, dir: string): Promise<string | undefined> {
+    try {
+      const [output, _] = await callAsync(`grep -r -o ${key} ${dir}`);
+      return output;
+    } catch (error) {
+      console.log("No such key need to find ", error);
+      return undefined;
+    }
+  }
 }

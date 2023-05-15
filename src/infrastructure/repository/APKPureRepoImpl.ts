@@ -1,23 +1,68 @@
 import { IAPKPureRepo } from "@repositories/IAPKPureRepo";
 import { CONFIG } from "config/config";
-import { Builder, Browser, By } from "selenium-webdriver";
+import { Builder, Browser, By, WebDriver, until } from "selenium-webdriver";
 import firefox from "selenium-webdriver/firefox.js";
 import fs from "fs";
-import https from "https";
-import { SeleniumServer } from "selenium-webdriver/remote";
 
 export class APKPureRepoImpl implements IAPKPureRepo {
-  async downloadAPK(packageId: string, appName: string) {
+  firefoxOptions = new firefox.Options();
+
+  async quitBrowser(): Promise<void> {
+    var driver = await new Builder()
+      .forBrowser(Browser.FIREFOX)
+      .setFirefoxOptions(this.firefoxOptions)
+      .build();
+
+    return driver.quit();
+  }
+
+  async waitForElementToLoad(
+    driver: WebDriver,
+    className: string,
+    timeout = 30000
+  ) {
+    try {
+      await driver.wait(until.elementLocated(By.className(className)), timeout);
+    } catch (error) {
+      driver.quit();
+      throw new Error(`Unable to locate element : ${className} `);
+    }
+  }
+
+  async checkDownloadComplete(downloadPath: string, interval: number) {
+    return new Promise((resolve) => {
+      const intervalId = setInterval(() => {
+        fs.readdir(downloadPath, (err, files) => {
+          if (err) {
+            clearInterval(intervalId);
+            resolve(false);
+          } else {
+            const isComplete = files.every(
+              (file) => file.endsWith(".apk") || file.endsWith(".xapk")
+            );
+            if (isComplete) {
+              resolve(true);
+            }
+          }
+        });
+      }, interval);
+    });
+  }
+
+  async downloadAPK(packageId: string, appName: string): Promise<string> {
+    const downloadPath = CONFIG.dir + packageId;
+    const uBlockExtension =
+      "/Users/Thien/Android-App-Analyzer/extensions/uBlock0_1.49.3b10.firefox.signed.xpi";
+
     let firefoxOptions = new firefox.Options();
-    firefoxOptions.addArguments("-safe-mode");
-    firefoxOptions.addArguments("--disable-popup-blocking");
     firefoxOptions.addArguments("--safebrowsing-disable-download-protection");
+    firefoxOptions.addExtensions(uBlockExtension);
     firefoxOptions.setPreference("browser.download.folderList", 2);
     firefoxOptions.setPreference(
       "browser.download.manager.showWhenStarting",
       false
     );
-    firefoxOptions.setPreference("browser.download.dir", CONFIG.dir);
+    firefoxOptions.setPreference("browser.download.dir", downloadPath);
     firefoxOptions.setPreference(
       "browser.helperApps.neverAsk.saveToDisk",
       "text/plain"
@@ -30,13 +75,21 @@ export class APKPureRepoImpl implements IAPKPureRepo {
     try {
       // Click Download Btn
       driver.get(`${CONFIG.downloadURL}/${packageId}/download`);
+      await this.waitForElementToLoad(driver, "download-start-btn");
       const download = driver.findElement(By.className("download-start-btn"));
       download.click();
-      await driver.sleep(CONFIG.Time);
-      driver.quit();
+      const isDownloadComplete = await this.checkDownloadComplete(
+        downloadPath,
+        CONFIG.TIME
+      );
+      if (isDownloadComplete) {
+        driver.quit();
+      }
     } catch (error) {
-      console.log(error);
       driver.quit();
+      throw new Error(`Error when download apk in apkpure : ${error}`);
     }
+
+    return downloadPath;
   }
 }

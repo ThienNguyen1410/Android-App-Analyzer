@@ -5,46 +5,83 @@ import { SignerImpl } from "@impl/SignerImpl";
 import { Repack } from "@usecase/pentest/Repack";
 import { Framework } from "@usecase/pentest/CheckFramework";
 import { TermRepositoryImpl } from "@impl/TermRepositoryImpl";
-import googlePlay from "google-play-scraper";
+import googlePlay, { app } from "google-play-scraper";
 import { APKPureRepoImpl } from "@impl/APKPureRepoImpl";
-
+import { GooglePlay } from "@impl/GooglePlayImpl";
+import { createDir } from "@utils/CreateDir";
+import { CONFIG } from "config/config";
+import { SearchDir } from "@usecase/search/SearchDir";
 const { packageId, keyword, category, download, categories, collections } =
   ArgsParser;
 
 const APKPureRepo = new APKPureRepoImpl();
+const apkTool = new APKToolImpl();
+const termRepo = new TermRepositoryImpl();
+const adbRepository = new ADBRepositoryImpl();
+const apktoolRepository = new APKToolImpl();
+const signerRepository = new SignerImpl();
 
-const searchPackage = () => {
+const repack = new Repack(adbRepository, apktoolRepository, signerRepository);
+const search = new SearchDir(termRepo, apkTool, APKPureRepo);
+
+const searchPackage = async () => {
   if (keyword != undefined && download) {
     googlePlay
       .search({ term: keyword })
       .then((appItems) =>
         appItems.forEach((appItem) => {
-          console.log(
-            "----------------------------------------------------------------------------------------------------------"
-          );
-          console.log(appItem);
-
           APKPureRepo.downloadAPK(appItem.appId, appItem.title)
-            .then()
-            .catch((error) => console.log(error));
+            .then((path) => {
+              termRepo
+                .listFile(path)
+                .then((file) => {
+                  let outDir = `apks/${appItem.appId}/source`;
+                  if (file.split(".").pop()?.replace(/\s/g, "") === "apk") {
+                    let fileFormat = file.replace(/ /g, "\\ ");
+                    fileFormat = fileFormat.replace("\n", "");
+                    apktoolRepository
+                      .decompileNoRes(fileFormat, outDir)
+                      .then(() => {
+                        termRepo
+                          .search("api.openai.com", outDir)
+                          .then((result) => {
+                            console.log("----------------------");
+                            console.log("App Name : ", appItem.title);
+                            console.log("Package ID : ", appItem.appId);
+                            console.log("\x1b[34mResult : ", result, "\x1b[0m");
+                            console.log("----------------------");
+                          })
+                          .catch((error) => {
+                            console.log(error);
+                          });
+                      })
+                      .catch((error) =>
+                        console.log(
+                          `Decompile error at file ${fileFormat} and error is : ${error}`
+                        )
+                      );
+                  }
+                })
+                .catch((error) => console.log(`Error when list file ${path}`));
+            })
+            .catch((error) => {
+              console.log("Error when download apk ", error);
+              APKPureRepo.quitBrowser().then();
+              throw error;
+            });
         })
       )
       .catch((error) => console.log(error));
-  }
-  if (keyword != undefined) {
+  } else if (keyword != undefined) {
     googlePlay
       .search({ term: keyword })
       .then((appItems) =>
         appItems.forEach((appItem) => {
-          console.log(
-            "----------------------------------------------------------------------------------------------------------"
-          );
           console.log(appItem);
         })
       )
       .catch((error) => console.log(error));
-  }
-  if (packageId != undefined && download) {
+  } else if (packageId != undefined && download) {
     googlePlay.app({ appId: packageId }).then((appItem) => {
       let appInfo = {
         title: appItem.title,
@@ -81,11 +118,50 @@ const searchPackage = () => {
         genreId: appItem.genreId,
         familyGenre: appItem.familyGenre,
       };
-      console.log(appInfo);
-      APKPureRepo.downloadAPK(packageId, appInfo.title);
+      console.log(appInfo.title);
+      console.log("------------------------------------");
+      APKPureRepo.downloadAPK(appItem.appId, appItem.title)
+        .then((path) => {
+          termRepo
+            .listFile(path)
+            .then((file) => {
+              let outDir = `apks/${appItem.appId}/source`;
+              if (file.split(".").pop()?.replace(/\s/g, "") === "apk") {
+                let fileFormat = file.replace(/ /g, "\\ ");
+                fileFormat = fileFormat.replace("\n", "");
+                apktoolRepository
+                  .decompileNoRes(fileFormat, outDir)
+                  .then((path) => {
+                    console.log("File Format : ", fileFormat);
+                    termRepo
+                      .search("api.openai.com", outDir)
+                      .then((result) => {
+                        console.log("----------------------");
+                        console.log("App Name : ", appItem.title);
+                        console.log("Package ID : ", appItem.appId);
+                        console.log("\x1b[34mResult : ", result, "\x1b[0m");
+                        console.log("----------------------");
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                        process.exit(1);
+                      });
+                  });
+              }
+            })
+            .catch((error) => console.log(`Error when list file ${path}`));
+        })
+        .catch((error) => {
+          console.log("Error when download apk ", error);
+          APKPureRepo.quitBrowser().then();
+          throw error;
+        });
     });
-  }
-  if (packageId != undefined) {
+
+    // .then(() => {
+    //   search.searchInAPK("api.openai.com", appItem.appId, appItem.title).then(console.log)
+    // .catch((error) => console.log(error));
+  } else if (packageId != undefined) {
     googlePlay
       .app({ appId: packageId })
       .then((appItem) => {
@@ -124,7 +200,6 @@ const searchPackage = () => {
         //   genreId: appItem.genreId,
         //   familyGenre: appItem.familyGenre,
         // };
-        console.log(appItem);
       })
       .catch((error) => console.log(error));
   }

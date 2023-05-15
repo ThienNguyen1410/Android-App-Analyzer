@@ -13,4 +13,11 @@ export class APKToolImpl implements IAPKTools {
     const [stdout, _] = await callAsync(`apktool b ${dir}`);
     return stdout;
   }
+
+  async decompile(apkPath: string, outDir: string): Promise<string> {
+    const [path, _] = await callAsync(
+      `apktool d --no-res ${apkPath} -o ${outDir}`
+    );
+    return path;
+  }
 }
