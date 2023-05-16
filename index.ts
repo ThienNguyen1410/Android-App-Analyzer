@@ -11,6 +11,9 @@ import { GooglePlay } from "@impl/GooglePlayImpl";
 import { createDir } from "@utils/CreateDir";
 import { CONFIG } from "config/config";
 import { SearchDir } from "@usecase/search/SearchDir";
+import ora from "ora";
+import { PlayStoreImpl } from "@impl/PlaystoreImpl";
+
 const { packageId, keyword, category, download, categories, collections } =
   ArgsParser;
 
@@ -20,14 +23,16 @@ const termRepo = new TermRepositoryImpl();
 const adbRepository = new ADBRepositoryImpl();
 const apktoolRepository = new APKToolImpl();
 const signerRepository = new SignerImpl();
+const playStoreRepo = new PlayStoreImpl();
+process.setMaxListeners(30);
 
 const repack = new Repack(adbRepository, apktoolRepository, signerRepository);
 const search = new SearchDir(termRepo, apkTool, APKPureRepo);
 
 const searchPackage = async () => {
   if (keyword != undefined && download) {
-    googlePlay
-      .search({ term: keyword })
+    playStoreRepo
+      .searchPackage(keyword)
       .then((appItems) =>
         appItems.forEach((appItem) => {
           APKPureRepo.downloadAPK(appItem.appId, appItem.title)
@@ -66,142 +71,33 @@ const searchPackage = async () => {
             })
             .catch((error) => {
               console.log("Error when download apk ", error);
-              APKPureRepo.quitBrowser().then();
               throw error;
             });
         })
       )
       .catch((error) => console.log(error));
   } else if (keyword != undefined) {
-    googlePlay
-      .search({ term: keyword })
-      .then((appItems) =>
-        appItems.forEach((appItem) => {
-          console.log(appItem);
-        })
-      )
-      .catch((error) => console.log(error));
+    const appInfo = await playStoreRepo.searchPackage(keyword);
+    console.log(appInfo);
   } else if (packageId != undefined && download) {
-    googlePlay.app({ appId: packageId }).then((appItem) => {
-      let appInfo = {
-        title: appItem.title,
-        appId: appItem.appId,
-        url: appItem.url,
-        updated: appItem.updated.toLocaleString(),
-        recentChanges: appItem.recentChanges,
-        version: appItem.version,
-        released: appItem.released,
-        adSupported: appItem.adSupported,
-        summary: appItem.summary,
-        installs: appItem.installs,
-        minInstalls: appItem.minInstalls,
-        maxInstalls: appItem.maxInstalls,
-        score: appItem.score,
-        scoreText: appItem.scoreText,
-        ratings: appItem.ratings,
-        reviews: appItem.reviews,
-        histogram: appItem.histogram,
-        price: appItem.price,
-        free: appItem.free,
-        currency: appItem.currency,
-        priceText: appItem.priceText,
-        available: appItem.available,
-        offersIAP: appItem.offersIAP,
-        IAPRange: appItem.IAPRange,
-        androidVersion: appItem.androidVersion,
-        developer: appItem.developer,
-        developerId: appItem.developerId,
-        developerEmail: appItem.developerEmail,
-        developerWebsite: appItem.developerWebsite,
-        developerAddress: appItem.developerAddress,
-        genre: appItem.genre,
-        genreId: appItem.genreId,
-        familyGenre: appItem.familyGenre,
-      };
-      console.log(appInfo.title);
-      console.log("------------------------------------");
-      APKPureRepo.downloadAPK(appItem.appId, appItem.title)
-        .then((path) => {
-          termRepo
-            .listFile(path)
-            .then((file) => {
-              let outDir = `apks/${appItem.appId}/source`;
-              if (file.split(".").pop()?.replace(/\s/g, "") === "apk") {
-                let fileFormat = file.replace(/ /g, "\\ ");
-                fileFormat = fileFormat.replace("\n", "");
-                apktoolRepository
-                  .decompileNoRes(fileFormat, outDir)
-                  .then((path) => {
-                    console.log("File Format : ", fileFormat);
-                    termRepo
-                      .search("api.openai.com", outDir)
-                      .then((result) => {
-                        console.log("----------------------");
-                        console.log("App Name : ", appItem.title);
-                        console.log("Package ID : ", appItem.appId);
-                        console.log("\x1b[34mResult : ", result, "\x1b[0m");
-                        console.log("----------------------");
-                      })
-                      .catch((error) => {
-                        console.log(error);
-                        process.exit(1);
-                      });
-                  });
-              }
-            })
-            .catch((error) => console.log(`Error when list file ${path}`));
-        })
-        .catch((error) => {
-          console.log("Error when download apk ", error);
-          APKPureRepo.quitBrowser().then();
-          throw error;
-        });
-    });
-
-    // .then(() => {
-    //   search.searchInAPK("api.openai.com", appItem.appId, appItem.title).then(console.log)
-    // .catch((error) => console.log(error));
+    try {
+      const appItem = await playStoreRepo.searchPackageInfo(packageId);
+      const path = await APKPureRepo.downloadAPK(appItem.appId, appItem.title);
+      const file = await termRepo.listFile(path);
+      let outDir = `apks/${appItem.appId}/source`;
+      if (file.split(".").pop()?.replace(/\s/g, "") === "apk") {
+        let fileFormat = file.replace(/ /g, "\\ ");
+        fileFormat = fileFormat.replace("\n", "");
+        const decompilePath = await apktoolRepository.decompileNoRes(
+          fileFormat,
+          outDir
+        );
+        const result = await termRepo.search("api.openai.com", outDir);
+      }
+    } catch (error) {}
   } else if (packageId != undefined) {
-    googlePlay
-      .app({ appId: packageId })
-      .then((appItem) => {
-        // let appInfo = {
-        //   title: appItem.title,
-        //   appId: appItem.appId,
-        //   url: appItem.url,
-        //   updated: appItem.updated.toLocaleString(),
-        //   recentChanges: appItem.recentChanges,
-        //   version: appItem.version,
-        //   released: appItem.released,
-        //   adSupported: appItem.adSupported,
-        //   summary: appItem.summary,
-        //   installs: appItem.installs,
-        //   minInstalls: appItem.minInstalls,
-        //   maxInstalls: appItem.maxInstalls,
-        //   score: appItem.score,
-        //   scoreText: appItem.scoreText,
-        //   ratings: appItem.ratings,
-        //   reviews: appItem.reviews,
-        //   histogram: appItem.histogram,
-        //   price: appItem.price,
-        //   free: appItem.free,
-        //   currency: appItem.currency,
-        //   priceText: appItem.priceText,
-        //   available: appItem.available,
-        //   offersIAP: appItem.offersIAP,
-        //   IAPRange: appItem.IAPRange,
-        //   androidVersion: appItem.androidVersion,
-        //   developer: appItem.developer,
-        //   developerId: appItem.developerId,
-        //   developerEmail: appItem.developerEmail,
-        //   developerWebsite: appItem.developerWebsite,
-        //   developerAddress: appItem.developerAddress,
-        //   genre: appItem.genre,
-        //   genreId: appItem.genreId,
-        //   familyGenre: appItem.familyGenre,
-        // };
-      })
-      .catch((error) => console.log(error));
+    const appInfo = await playStoreRepo.searchPackageInfo(packageId);
+    console.log(appInfo);
   }
 
   if (categories) {
@@ -253,11 +149,6 @@ const searchPackage = async () => {
 
 searchPackage();
 
-// googlePlay
-//   .search({ term: packageId })
-//   .then((appItems) => appItems.forEach((appInfo) => console.log(appInfo)))
-//   .catch((error) => console.log(error));
-
 // const adbRepository = new ADBRepositoryImpl();
 // const apktoolRepository = new APKToolImpl();
 // const signerRepository = new SignerImpl();
@@ -267,13 +158,6 @@ searchPackage();
 // if (!connected) {
 //   throw "Please connect device !";
 // }
-
-// googlePlay
-//   .list({
-//     category: googlePlay.category.GAME,
-//     collection: googlePlay.collection.TOP_FREE,
-//   })
-//   .then((appInfo) => appInfo.forEach((app) => console.log(app.appId)));
 
 // const repack = new Repack(adbRepository, apktoolRepository, signerRepository);
 // const apk = new Framework(adbRepository, terminalRepository);

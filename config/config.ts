@@ -3,5 +3,5 @@ export const CONFIG = {
   downloadAPK: "https://d.apkpure.com/b/APK",
   downloadXAPK: " https://d.apkpure.com/b/XAPK",
   downloadURL: "https://m.apkpure.com/vn",
-  TIME: 120000,
+  TIME: 60000,
 };

@@ -1,6 +1,6 @@
 import { IAppItemFullDetail } from "google-play-scraper";
 
-export interface PlayStore {
-  searchPackage(keyword: string): Promise<string>;
+export interface PlayStoreRepository {
+  searchPackage(keyword: string): Promise<IAppItemFullDetail[]>;
   searchPackageInfo(packageId: string): Promise<IAppItemFullDetail>;
 }

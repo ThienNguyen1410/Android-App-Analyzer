@@ -3,23 +3,15 @@ import { CONFIG } from "config/config";
 import { Builder, Browser, By, WebDriver, until } from "selenium-webdriver";
 import firefox from "selenium-webdriver/firefox.js";
 import fs from "fs";
+import ora from "ora";
+import chalk from "chalk";
+import { COLORS } from "config/colors";
 
 export class APKPureRepoImpl implements IAPKPureRepo {
-  firefoxOptions = new firefox.Options();
-
-  async quitBrowser(): Promise<void> {
-    var driver = await new Builder()
-      .forBrowser(Browser.FIREFOX)
-      .setFirefoxOptions(this.firefoxOptions)
-      .build();
-
-    return driver.quit();
-  }
-
   async waitForElementToLoad(
     driver: WebDriver,
     className: string,
-    timeout = 30000
+    timeout = 10000
   ) {
     try {
       await driver.wait(until.elementLocated(By.className(className)), timeout);
@@ -50,11 +42,17 @@ export class APKPureRepoImpl implements IAPKPureRepo {
   }
 
   async downloadAPK(packageId: string, appName: string): Promise<string> {
+    // Create Spinner UI
+    let spinnerText =
+      chalk.hex(COLORS.running)("Downloading") +
+      ` : ${appName} from m.apkpure.com...`;
+    let spinner = ora({ text: spinnerText }).start();
     const downloadPath = CONFIG.dir + packageId;
     const uBlockExtension =
       "/Users/Thien/Android-App-Analyzer/extensions/uBlock0_1.49.3b10.firefox.signed.xpi";
 
     let firefoxOptions = new firefox.Options();
+    firefoxOptions.addArguments("--headless");
     firefoxOptions.addArguments("--safebrowsing-disable-download-protection");
     firefoxOptions.addExtensions(uBlockExtension);
     firefoxOptions.setPreference("browser.download.folderList", 2);
@@ -67,7 +65,6 @@ export class APKPureRepoImpl implements IAPKPureRepo {
       "browser.helperApps.neverAsk.saveToDisk",
       "text/plain"
     );
-
     var driver = await new Builder()
       .forBrowser(Browser.FIREFOX)
       .setFirefoxOptions(firefoxOptions)
@@ -83,11 +80,17 @@ export class APKPureRepoImpl implements IAPKPureRepo {
         CONFIG.TIME
       );
       if (isDownloadComplete) {
+        spinner.succeed(
+          chalk.hex(COLORS.success)("Downloaded") + ` : ${appName} success !`
+        );
         driver.quit();
       }
     } catch (error) {
       driver.quit();
-      throw new Error(`Error when download apk in apkpure : ${error}`);
+      throw spinner.fail(
+        chalk.hex(COLORS.error)("Error") +
+          ` when download apk in apkpure : ${error}`
+      );
     }
 
     return downloadPath;
