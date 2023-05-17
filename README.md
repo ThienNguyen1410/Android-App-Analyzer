@@ -1,20 +1,35 @@
 # Android App Analyze
 
-Get app from Google Play Store and analyze 
-
 **Inspiration :** 
 
 - **[google-play-scraper](https://github.com/facundoolano/google-play-scraper#list) : A wonderful tool to get information from Play Store**
 
+**This is a tool help you :** 
+
+- Scan app information from Play Store
+- Download APK from APK Pure, use package-ID or keyword
+- Install multiple apk to android phone
+- Scan securities risks from your application :
+    - Application can be re signed by another key
+    - Application can be leak sensitive string
+    - Application can be bypass SSL-Pinning (WIP)
+    - Application risks when run on un-protected environment(WIP)
+
+**Prerequisite** : 
+
+- Before using this tool, make sure you have installed `apktool`. You can download and install it from the [official website](https://ibotpeaches.github.io/Apktool/install/)
+- Firefox browser to be installed in order to run
+- This tool current run on MacOS only
+
 1) **Installation** : 
 
 ```jsx
-npm install
+cd Android-App-Analyzer && npm install
 ```
 
 2) **Features** : 
 
-- Search:
+- **Search**:
     - See all options
         
         ```jsx
@@ -33,6 +48,7 @@ npm install
               --categories, --cs     List all categories                       [boolean]
               --collections, --cols  List all collection of app on play store  [boolean]
           -d, --download             Download apk                              [boolean]
+              --resign, --rs         Check apk can be re-sign or not           [boolean]
           -h, --help                 Show help                                 [boolean]
         ```
         
@@ -48,24 +64,13 @@ npm install
             ```jsx
             npm run start -- --category BUSINESS
             
-            com.calculated.ashley3415
-            com.royalapplications.royaltsd
-            com.stoik.mdscan
-            com.linkedin.android
-            com.intuit.quickbooks
-            com.aadhk.woinvoice
-            com.reportallusa.landglide
-            com.sideline.phone.number
-            com.joistapp.android.joist
-            us.zoom.videomeetings
-            com.invoice2go.invoice2goplus
-            pdf.tap.scanner
-            biz.faxapp.app
-            com.mobisystems.office
-            com.godaddy.gdm.smartline
-            com.adobe.scan.android
-            com.bpmobile.iscanner.free
-            com.sitefinder.wellsitenavigatorusa
+            ✔ Zoom - One Platform to Connect : us.zoom.videomeetings
+            ✔ Microsoft Authenticator : com.azure.authenticator
+            ✔ Microsoft Teams : com.microsoft.teams
+            ✔ Indeed Job Search : com.indeed.android.jobsearch
+            ✔ Uber - Driver: Drive & Deliver : com.ubercab.driver
+            ✔ Google Chat : com.google.android.apps.dynamite
+            ✔ DoorDash - Dasher : com.doordash.driverapp
             
             ```
             
@@ -81,7 +86,7 @@ npm install
             npm run start -- --cs
             ```
             
-- Download
+- Download from APKPure
     - Download use keyword:
         
         ```jsx
@@ -94,3 +99,24 @@ npm install
         ```jsx
         npm run start -- --p ${package-id} -d
         ```
+        
+
+- Securities Risks :
+    - **Re-sign package by another keystore.**
+    
+    ```jsx
+    npm run start -- --packageId "${packageId}" --rs true
+    ```
+    
+    ```jsx
+    ✔ Get package com.bcy.fsapp success from path : base,split_config.arm64_v8a,split_config.en,split_config.vi,split_config.xxhdpi
+    ✔ Pulled package from /data/app/com.bcy.fsapp-KxANmk3tdW53rE-E4Y0uZQ==/base.apk to com.bcy.fsapp/base
+    ✔ Pulled package from /data/app/com.bcy.fsapp-KxANmk3tdW53rE-E4Y0uZQ==/split_config.arm64_v8a.apk to com.bcy.fsapp/split_config.arm64_v8a
+    ✔ Pulled package from /data/app/com.bcy.fsapp-KxANmk3tdW53rE-E4Y0uZQ==/split_config.en.apk to com.bcy.fsapp/split_config.en
+    ✔ Pulled package from /data/app/com.bcy.fsapp-KxANmk3tdW53rE-E4Y0uZQ==/split_config.vi.apk to com.bcy.fsapp/split_config.vi
+    ✔ Pulled package from /data/app/com.bcy.fsapp-KxANmk3tdW53rE-E4Y0uZQ==/split_config.xxhdpi.apk to com.bcy.fsapp/split_config.xxhdpi
+    ⠋ Decompiling apk in folder : com.bcy.fsapp/base/base.apk DONE !
+    ✔ Decompiled in folder com.bcy.fsapp/base/source
+    ✔ Build application completed in folder : com.bcy.fsapp/base/source
+    ✔ Signed APK : com.bcy.fsapp/base/source/dist/base.apk
+    ```

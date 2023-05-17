@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package run;
+
+option java_multiple_files = false;
+option java_package = "protomsg";
+/********************************************************
+记录跑步每一秒的详情
+*********************************************************/
+
+//用户跑步操作
+enum UserRunOp{
+    Update_Run=0; //更新跑步数据
+    Pause_Run=1; //暂停跑步
+    Finish_Run=3; //结束跑步
+}
+//客户端每次更新跑步数据
+message RunUpdateData{
+
+    int64  runID=1;
+    UserRunOp run_op = 2; //跑步操作
+    int64 uid=4;
+    int32 moveState=5;
+    int32 index=6;
+    int64 time=7; //时间戳
+    int32 dis=8;
+    int32 steps=9;
+    int32 kcal=10;
+    string device=11; //机器设备
+    repeated SmoothMoveData move_data = 12; //平滑后的数据
+    repeated RunTraceItem trace_items = 13; //详细的轨迹数据
+
+    //用户跑步平滑后的数据
+    message SmoothMoveData{
+        int32 step=1;
+        int32 time=2;
+        int32 x=3;
+        int32 y=4;
+    }
+}
+
+//单条跑步记录
+message RunTraceItem{
+    int64 time=1;
+    double longitude=2;
+    double latitude=3;
+    float vertical=4; //垂直精度
+    float horizontal=5;
+    float altitude=6; //海拔
+    float direction=7;
+    float speed=8;
+    int32 step=9;
+    float x=10; //x y的加速度
+    float y=11;
+    float z=12;
+    int32 energy=13;  //当前点的总能量
+}
+
+//跑步分片数据
+message RunTraceFragment{
+    int64  runID=1;
+    int64 time=2;
+    int32 energy=3; //当前使用的能量
+    string device=4;
+    repeated RunTraceItem items = 5;
+}
+
+/////////////////////服务的整合成为一个跑步数据
+//跑步头部的信息
+message RunTraceHead{
+    int64 runID=1;
+    string uid=2;
+    int32 state=3;
+    int64 start=4;  //开始时间
+    int64 end=5;
+    int32 dis=6;      //上传距离 精确0.1米
+    int32 steps=7;   //总步数
+    int32 energy=8;   //使用能量
+    string version=9;
+}
+//上传的片段字节数据，
+message RunTraceFragmentBytes{
+    bool zip=1; //字节流是否压缩
+    int32 version=2;  //分片数据的版本
+    bytes fragments=3;
+}
+
+message RunTraceTotal{
+    RunTraceHead head = 1;
+    repeated RunTraceFragmentBytes fragmentData=2;
+}

@@ -14,7 +14,11 @@ export class PlayStoreImpl implements PlayStoreRepository {
       googlePlay
         .search({ term: keyword })
         .then((items) => {
-          spinner.succeed("Search package completed !");
+          items.forEach((item) => {
+            spinner.succeed(
+              `Found app : ${item.title}  | packageId ${item.appId}`
+            );
+          });
           resolve(items);
         })
         .catch((error) => {
@@ -43,6 +47,33 @@ export class PlayStoreImpl implements PlayStoreRepository {
             chalk.hex(COLORS.error)("Search") +
               ` package ${packageId} failed with ${error} !`
           );
+        });
+    });
+  }
+
+  listAppInTopFree(category: string): Promise<googlePlay.IAppItemFullDetail[]> {
+    return new Promise((resolve, reject) => {
+      let spinner = ora(
+        chalk.hex(COLORS.running)("Listing") +
+          " app in TOP FREE category of Play Store"
+      ).start();
+      googlePlay
+        .list({
+          category: category as any,
+          collection: googlePlay.collection.TOP_FREE,
+        })
+        .then((appItems) => {
+          appItems.forEach((appItems) => {
+            spinner.succeed(
+              chalk.hex(COLORS.success)(`${appItems.title}`) +
+                ` : ${appItems.appId}`
+            );
+          });
+          resolve(appItems);
+        })
+        .catch((error) => {
+          spinner.fail(chalk.hex(COLORS.error)("ERROR") + ` : ${error}`);
+          reject(error);
         });
     });
   }

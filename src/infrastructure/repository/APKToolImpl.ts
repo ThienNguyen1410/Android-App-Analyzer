@@ -23,8 +23,16 @@ export class APKToolImpl implements IAPKTools {
   }
 
   async buildApp(dir: string): Promise<string> {
-    const [stdout, _] = await callAsync(`apktool b ${dir}`);
-    return stdout;
+    let spinner = ora(
+      chalk.hex(COLORS.running)("Buiding") + ` app in folder : ${dir}`
+    ).start();
+    try {
+      const [stdout, _] = await callAsync(`apktool b ${dir}`);
+      spinner.succeed(`Build application completed in folder : ${dir}`);
+      return stdout;
+    } catch (error) {
+      throw spinner.fail(`Build app fail with error : ${error}`);
+    }
   }
 
   async decompile(apkPath: string, outDir: string): Promise<string> {

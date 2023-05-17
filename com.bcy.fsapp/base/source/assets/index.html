@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="./web3.js"></script>
+    <script src="./decimal.js"></script>
+    <script src="./dooar.js"></script>
+    <script src="./bundle.js"></script>
+    <script>
+        const ua = window.navigator.userAgent;
+        const isAndroid = ua.indexOf("Android") > -1 || ua.indexOf("Adr") > -1;
+        let connection = new solanaWeb3.Connection(
+            "https://api.mainnet-beta.solana.com/",
+            "singleGossip"
+        );
+        let owner;
+        let network = Network.MAINNET;
+        const codeInfo = {
+            unknowWallet: {
+                code: -1,
+                msg: "unknow wallet",
+            },
+            transferError: {
+                code: -2,
+                msg: "",
+            },
+            success: {
+                code: 0,
+                msg: "",
+            },
+        };
+        const poolInfo = {
+            GST_USDC: "E6FUnQHGHJVJg7oExVr5Moeaj1QpdpZQF5odYjHXWPZb",
+            SOL_USDC: "APDFRM3HMr8CAGXwKHiu2f5ePSpaiEJhaURwhsRrUUt9",
+            GMT_USDC: "CFxQF5kNAtbbDj298Xr47Sf4mkSyuzWpRH97hrdQ6kxi",
+        };
+        const doorPoolInfo = {
+            SOL_USDC: "5GGvkcqQ1554ibdc18JXiPqR8aJz6WV3JSNShoj32ufT",
+            GST_USDC: "AkpQwi28Q5XgDCrmT6GtRCnhjSdx5hiU1DjSzKXGKUUf",
+            GMT_USDC: "HQ1XxvXdEk3adEFgvbZgghhp8Aizor6W7m4VoRDx2f9i"
+        };
+        function initWallet(key, urls, debug) {
+            if (urls) {
+                connection = new solanaWeb3.Connection(
+                    urls,
+                    "singleGossip"
+                );
+            }
+            if(debug === 'true'){
+                network = Network.DEVNET;
+            }
+            const secretKey = Uint8Array.from(JSON.parse(key));
+            owner = solanaWeb3.Keypair.fromSecretKey(secretKey);
+            return codeInfo.success;
+        }
+
+        function toast(msg) {
+            try {
+                if (isAndroid) {
+                    window.TOASTER.Toaster(JSON.stringify(msg));
+                } else {
+                    window.webkit.messageHandlers.Toaster.postMessage(msg);
+                }
+            } catch (e) { }
+        }
+
+        /** @type
+         *  0 gst -> usdc
+         *  1 sol -> usdc
+         *  2 sol -> gst
+         *  3 gmt -> usdc
+         *  @flashback bool
+         *  是否是顺序 是 gst => usdc  否 usdc => gst
+         *
+         * @getPrice
+         * 查询1兑换的价格
+         */
+
+         async function getPrice(type, money = 1, flashback = 'true',isOrca = 'true') {
+            let orca = getOrca(connection, network);
+            let pool = poolInfo;
+            if(isOrca != 'true'){
+                orca = getDooar(connection, network);
+                pool = doorPoolInfo;
+            }
+            let solToken;
+            let solToken2;
+            let solToken2A;
+            let solToken2B;
+            if (Number(type) == 0) {
+                orcaSolPool = orca.getPool(pool.GST_USDC);
+                if(flashback === "false"){
+                    solToken = orcaSolPool.getTokenA();
+                } else {
+                    solToken = orcaSolPool.getTokenB();
+                }
+            } else if (Number(type) == 1) {
+                orcaSolPool = orca.getPool(pool.SOL_USDC);
+                if(flashback === "false"){
+                    solToken = orcaSolPool.getTokenA();
+                } else {
+                    solToken = orcaSolPool.getTokenB();
+                }
+            } else if (Number(type) == 3) {
+                orcaSolPool = orca.getPool(pool.GMT_USDC);
+                if(flashback === "false"){
+                    solToken = orcaSolPool.getTokenA();
+                } else {
+                    solToken = orcaSolPool.getTokenB();
+                }
+            } else if (Number(type) == 4) {
+                if(flashback === "true"){
+                    orcaSolPool2 = orca.getPool(pool.GMT_USDC);
+                    orcaSolPool = orca.getPool(pool.SOL_USDC);
+                } else {
+                    orcaSolPool2 = orca.getPool(pool.SOL_USDC);
+                    orcaSolPool = orca.getPool(pool.GMT_USDC);
+                }
+                solToken = orcaSolPool.getTokenA();
+                solToken2 = orcaSolPool2.getTokenB();
+                solToken2A = orcaSolPool2.getTokenA();
+                solToken2B = orcaSolPool2.getTokenB();
+            } else if (Number(type) == 5) {
+                if(flashback === "true"){
+                    orcaSolPool = orca.getPool(pool.GST_USDC);
+                    orcaSolPool2 = orca.getPool(pool.GMT_USDC);
+                } else {
+                    orcaSolPool = orca.getPool(pool.GMT_USDC);
+                    orcaSolPool2 = orca.getPool(pool.GST_USDC);
+                }
+                solToken = orcaSolPool.getTokenA();
+                solToken2 = orcaSolPool2.getTokenB();
+                solToken2A = orcaSolPool2.getTokenA();
+                solToken2B = orcaSolPool2.getTokenB();
+            } else {
+                if(flashback === "true"){
+                    orcaSolPool = orca.getPool(pool.GST_USDC);
+                    orcaSolPool2 = orca.getPool(pool.SOL_USDC);
+                } else {
+                    orcaSolPool = orca.getPool(pool.SOL_USDC);
+                    orcaSolPool2 = orca.getPool(pool.GST_USDC);
+                }
+                solToken = orcaSolPool.getTokenA();
+                solToken2 = orcaSolPool2.getTokenB();
+                solToken2A = orcaSolPool2.getTokenA();
+                solToken2B = orcaSolPool2.getTokenB();
+            }
+            if (!orcaSolPool2) {
+                const amount = new Decimal(money);
+                const [quote, quotea] = await Promise.all([orcaSolPool.getQuote(solToken2, amount), orcaSolPool.getQuote(solToken, amount)]);
+                const [rate, rate1] = await Promise.all([quote.getRate(), quotea.getRate()]);
+                toast({ tokenA: rate1.toNumber().toString(), tokenB: rate.toNumber().toString(), type, getPrice: 'getPrice' })
+            } else {
+                //gst => sol
+                const amountA = new Decimal(money);
+                const amount3 = new Decimal(money);
+                const [quoteA, quoteB, quote2A, quote2B] = await Promise.all([orcaSolPool.getQuote(solToken, amountA), orcaSolPool.getQuote(solToken2, amountA), orcaSolPool2.getQuote(solToken2A, amount3), orcaSolPool2.getQuote(solToken2B, amount3)]);
+                const [rate, rateB, rate2, rate2B] = await Promise.all([quoteA.getRate(), quoteB.getRate(), quote2A.getRate(), quote2B.getRate()]);
+                toast({ tokenB: rate2B.mul(rate).toNumber().toString(), tokenA: rate2.mul(rateB).toNumber().toString(), type, getPrice: 'getPrice' })
+            }
+        }
+
+        function setError(error) {
+            const time = new Date().getTime();
+            localStorage.setItem(`${time}`, error)
+            toast({ error: error.toString() });
+        }
+
+        async function getMoney(
+            type,
+            flashback = "true",
+            money,
+            isOrca = 'true'
+        ) {
+            let orca = getOrca(connection, network);
+            let pool = poolInfo;
+            if(isOrca != 'true'){
+                orca = getDooar(connection, network);
+                pool = doorPoolInfo;
+            }
+            let orcaSolPool;
+            let orcaSolPool2;
+            let solToken;
+            let solToken2;
+            if (Number(type) == 0) {
+                orcaSolPool = orca.getPool(pool.GST_USDC);
+                if(flashback === "false"){
+                    solToken = orcaSolPool.getTokenA();
+                } else {
+                    solToken = orcaSolPool.getTokenB();
+                }
+            } else if (Number(type) == 1) {
+                orcaSolPool = orca.getPool(pool.SOL_USDC);
+                if(flashback === "false"){
+                    solToken = orcaSolPool.getTokenA();
+                } else {
+                    solToken = orcaSolPool.getTokenB();
+                }
+            } else if (Number(type) == 3) {
+                orcaSolPool = orca.getPool(pool.GMT_USDC);
+                if(flashback === "false"){
+                    solToken = orcaSolPool.getTokenA();
+                } else {
+                    solToken = orcaSolPool.getTokenB();
+                }
+            } else if (Number(type) == 4) {
+                if(flashback === "true"){
+                    orcaSolPool2 = orca.getPool(pool.GMT_USDC);
+                    orcaSolPool = orca.getPool(pool.SOL_USDC);
+                    solToken = orcaSolPool.getTokenA();
+                    solToken2 = orcaSolPool2.getTokenB();
+                } else {
+                    orcaSolPool2 = orca.getPool(pool.SOL_USDC);
+                    orcaSolPool = orca.getPool(pool.GMT_USDC);
+                }
+                solToken = orcaSolPool.getTokenA();
+            } else if (Number(type) == 5) {
+                if(flashback === "true"){
+                    orcaSolPool = orca.getPool(pool.GST_USDC);
+                    orcaSolPool2 = orca.getPool(pool.GMT_USDC);
+                } else {
+                    orcaSolPool = orca.getPool(pool.GMT_USDC);
+                    orcaSolPool2 = orca.getPool(pool.GST_USDC);
+                }
+                solToken = orcaSolPool.getTokenA();
+            } else {
+                if(flashback === "true"){
+                    orcaSolPool = orca.getPool(pool.GST_USDC);
+                    orcaSolPool2 = orca.getPool(pool.SOL_USDC);
+                } else {
+                    orcaSolPool = orca.getPool(pool.SOL_USDC);
+                    orcaSolPool2 = orca.getPool(pool.GST_USDC);
+                }
+                solToken = orcaSolPool.getTokenA();
+            }
+            const amount = new Decimal(money);
+            const quote = await orcaSolPool.getQuote(solToken, amount);
+            const orcaAmount = quote.getExpectedOutputAmount();
+            // 取出最少的usdc数量
+            if (!orcaSolPool2) {
+                toast({ getMoney: orcaAmount.toNumber().toString() });
+            } else {
+                solToken2 = orcaSolPool2.getTokenB();
+                const amount2 = new Decimal(orcaAmount.toNumber());
+                const quote2 = await orcaSolPool2.getQuote(solToken2, amount2);
+                const orcaAmount2 = quote2.getExpectedOutputAmount();
+                toast({ getMoney: orcaAmount2.toNumber().toString() });
+            }
+        }
+
+        //参数同 getMoney函数一样
+        async function swap(type, flashback = "true", money, slippage, isOrca = 'true') {
+            if (!owner) {
+                toast(codeInfo.unknowWallet);
+                return;
+            }
+            let orca = getOrca(connection, network);
+            let pool = poolInfo;
+            if(isOrca != 'true'){
+                orca = getDooar(connection, network);
+                pool = doorPoolInfo;
+            }
+            let orcaSolPool;
+            let orcaSolPool2;
+            if (Number(type) == 0) {
+                orcaSolPool = orca.getPool(pool.GST_USDC);
+            } else if (Number(type) == 1) {
+                orcaSolPool = orca.getPool(pool.SOL_USDC);
+            } else if (Number(type) == 3) {
+                orcaSolPool = orca.getPool(pool.GMT_USDC);
+            } else if (Number(type) == 4) {
+                if (flashback == 'true') {
+                    orcaSolPool = orca.getPool(pool.GMT_USDC);
+                    orcaSolPool2 = orca.getPool(pool.SOL_USDC);
+                } else {
+                    orcaSolPool = orca.getPool(pool.SOL_USDC);
+                    orcaSolPool2 = orca.getPool(pool.GMT_USDC);
+                }
+            } else if (Number(type) == 5) {
+                if (flashback == 'true') {
+                    orcaSolPool = orca.getPool(pool.GMT_USDC);
+                    orcaSolPool2 = orca.getPool(pool.GST_USDC);
+                } else {
+                    orcaSolPool = orca.getPool(pool.GST_USDC);
+                    orcaSolPool2 = orca.getPool(pool.GMT_USDC);
+                }
+            } else {
+                if (flashback == 'true') {
+                    orcaSolPool = orca.getPool(pool.SOL_USDC);
+                    orcaSolPool2 = orca.getPool(pool.GST_USDC);
+                } else {
+                    orcaSolPool = orca.getPool(pool.GST_USDC);
+                    orcaSolPool2 = orca.getPool(pool.SOL_USDC);
+                }
+            }
+            let solToken;
+            if (orcaSolPool2) {
+                solToken = orcaSolPool2.getTokenA();
+            } else {
+                solToken =
+                    flashback === "true"
+                        ? orcaSolPool.getTokenB()
+                        : orcaSolPool.getTokenA();
+            }
+            const amount = new Decimal(money);
+            const slippageNum = new Decimal(slippage);
+            let quote;
+            if (orcaSolPool2) {
+                quote = await orcaSolPool2.getQuote(solToken, amount, slippageNum).catch(e => {
+                    setError(e);
+                });
+            } else {
+                quote = await orcaSolPool.getQuote(solToken, amount, slippageNum).catch(e => {
+                    setError(e);
+                });
+            }
+            const orcaAmount = quote.getMinOutputAmount();
+            if (orcaSolPool2) {
+                const solToken2 = orcaSolPool.getTokenB();
+                // gst => sol
+                if (flashback === 'true') {
+                    const amount2 = new Decimal(orcaAmount.toNumber());
+                    const quote2 = await orcaSolPool.getQuote(solToken2, amount2, slippageNum).catch(e => {
+                        setError(e);
+                    });
+                    try {
+                        const orcaAmount2 = quote2.getMinOutputAmount();
+                        const [swapPayload, swapPayload2] = await Promise.all([orcaSolPool.swap(owner, solToken2, amount2, orcaAmount2), orcaSolPool2.swap(owner, solToken, amount, orcaAmount)]);
+                        swapPayload2.transaction.add(swapPayload.transaction);
+                        swapPayload2.signers.push(...swapPayload.signers);
+                        const swapTxId = await swapPayload2.execute()
+                        toast({ swap: swapTxId });
+                    } catch (error) {
+                        setError(error);
+                    }
+                } else {
+                    // sol => gst
+                    const amount2 = new Decimal(orcaAmount.toNumber());
+                    const quote2 = await orcaSolPool.getQuote(solToken2, amount2, slippageNum).catch(e => {
+                        setError(e);
+                    });
+                    try {
+                        const orcaAmount2 = quote2.getMinOutputAmount();
+                        const [swapPayload, swapPayload2] = await Promise.all([orcaSolPool2.swap(owner, solToken, amount, orcaAmount), orcaSolPool.swap(owner, solToken2, amount2, orcaAmount2)]);
+                        swapPayload.transaction.add(swapPayload2.transaction);
+                        swapPayload.signers.push(...swapPayload2.signers);
+                        const swapTxId = await swapPayload.execute()
+                        toast({ swap: swapTxId });
+                    } catch (e) {
+                        setError(e);
+                    }
+                }
+            } else {
+                const swapPayload = await orcaSolPool
+                    .swap(owner, solToken, amount, orcaAmount).catch(e => {
+                        setError(e);
+                    });
+                const swapTxId = await swapPayload.execute().catch(e => {
+                    setError(e);
+                });
+                toast({ swap: swapTxId });
+            }
+        }
+  //   Map<String, List> type = {
+  //   "GST_USDC": [0, false],
+  //   "SOL_USDC": [1, false],
+  //   "SOL_GST": [2, false],
+  //   "USDC_GST": [0, true],
+  //   "USDC_SOL": [1, true],
+  //   "GST_SOL": [2, true],
+  //   "GMT_USDC": [3, true],
+  //   "USDC_GMT": [3, false],
+  //   "GMT_SOL": [4, true],
+  //   "SOL_GMT": [4, false],
+  //   "GMT_GST": [5, true],
+  //   "GMT_GST": [5, false],
+  // };
+    </script>
+</body>
+
+</html>

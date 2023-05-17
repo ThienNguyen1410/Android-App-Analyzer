@@ -37,10 +37,11 @@ export class TermRepositoryImpl implements ITerm {
     let spinner = ora(
       chalk.hex(COLORS.running)("Searching :") + " " + `${key} in folder ${dir}`
     ).start();
+
     try {
       const [output, _] = await callAsync(`grep -r -o ${key} ${dir}`);
       spinner.succeed(
-        chalk.hex(COLORS.success)("Key") + ` ${key}exsited in ${dir}!`
+        chalk.hex(COLORS.success)("Key") + ` ${key} exsited in ${dir}!`
       );
       return output;
     } catch (error) {

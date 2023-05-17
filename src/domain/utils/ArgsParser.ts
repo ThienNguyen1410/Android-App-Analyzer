@@ -8,6 +8,7 @@ interface Args {
   categories?: boolean;
   collections?: boolean;
   download?: boolean;
+  resign?: boolean;
 }
 
 export const ArgsParser: Args = yargs(process.argv.slice(2))
@@ -49,6 +50,12 @@ export const ArgsParser: Args = yargs(process.argv.slice(2))
   .option("download", {
     alias: "d",
     describe: `Download apk`,
+    type: "boolean",
+    demandoption: false,
+  })
+  .option("resign", {
+    alias: "rs",
+    describe: `Check apk can be re-sign or not`,
     type: "boolean",
     demandoption: false,
   })

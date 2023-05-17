@@ -4,7 +4,7 @@ export function callAsync(command: string): Promise<[string, string]> {
   return new Promise<[string, string]>((resolve, reject) => {
     exec(command, (error, stdout, stderr) => {
       if (error) {
-        reject();
+        reject(error);
       } else {
         resolve([stdout, stderr]);
       }
