@@ -21,6 +21,9 @@ client.on("interactionCreate", async (interaction) => {
   if (commandName === "search") {
     search.execute(interaction);
   }
+  if (commandName === "ping") {
+    ping.execute(interaction);
+  }
 });
 
 // Replace 'YOUR_BOT_TOKEN' with your actual bot token.
