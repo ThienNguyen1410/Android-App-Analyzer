@@ -37,7 +37,9 @@ export class PlayStoreImpl implements PlayStoreRepository {
       googlePlay
         .app({ appId: packageId })
         .then((items) => {
-          spinner.succeed(chalk.hex(COLORS.success)("Search completed !"));
+          spinner.succeed(
+            chalk.hex(COLORS.success)(`Search completed : `) + ` ${packageId}`
+          );
           spinner.clear();
           resolve(items);
         })

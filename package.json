@@ -4,7 +4,8 @@
   "scripts": {
     "start": " tsc && tsc-alias && node dist/index.js",
     "build": "tsc && tsc-alias",
-    "build:watch": "tsc && (concurrently \"tsc -w\" \"tsc-alias -w\")"
+    "build:watch": "tsc && (concurrently \"tsc -w\" \"tsc-alias -w\")",
+    "deploy:commands" :  "tsc && node dist/src/app/discord/deploy-commands.js"
   },
   "dependencies": {
     "@types/node": "^18.15.11",
@@ -13,6 +14,8 @@
     "big-integer": "^1.6.51",
     "chalk": "^5.2.0",
     "concurrently": "^8.0.1",
+    "discord.js": "^14.11.0",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
     "google-auth-library": "^8.8.0",
