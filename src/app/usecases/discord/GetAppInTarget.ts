@@ -10,34 +10,54 @@ export class GetAppInTarget {
     this.playStoreRepo = playStore;
   }
 
+  formatDate(timestamp: number): string {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString();
+  }
+
+  formatTime(timestamp: number): string {
+    const date = new Date(timestamp);
+    return date.toLocaleTimeString();
+  }
+  // Collect package and check update
+  // Return updated package list;
   async execute(): Promise<AppInfo[]> {
-    let appInfos: AppInfo[] = [];
+    let updatedAppInfos: AppInfo[] = [];
     let targetJson = parseJson(CONFIG.targetPath) as TargetJson;
     for (let app of targetJson.appInfo.packages) {
       for (let [key, value] of Object.entries(app)) {
-        if (
+        const appItem = await this.playStoreRepo.searchPackageInfo(key);
+        const appInfo: AppInfo = {
+          title: appItem.title,
+          appId: appItem.appId,
+          recentChanges: appItem.recentChanges,
+          version: appItem.version,
+          updateDate: this.formatDate(appItem.updated),
+          updateTime: this.formatTime(appItem.updated),
+          updateTimestamp: appItem.updated,
+          androidVersion: appItem.androidVersion,
+          developer: appItem.developer,
+        };
+
+        const packageEmpty =
           typeof value === "object" &&
-          Object.keys(value as Object).length === 0
-        ) {
-          try {
-            const appItem = await this.playStoreRepo.searchPackageInfo(key);
-            const appInfo: AppInfo = {
-              title: appItem.title,
-              appId: appItem.appId,
-              recentChanges: appItem.recentChanges,
-              version: appItem.version,
-              androidVersion: appItem.androidVersion,
-              developer: appItem.developer,
-            };
-            app[key] = appInfo;
-          } catch (error) {
-            console.log(error);
-          }
+          Object.keys(value as Object).length === 0;
+        if (packageEmpty) {
+          app[key] = appInfo;
+          updatedAppInfos.push(appInfo);
+          continue;
+        }
+
+        const isVersionUpdate = app[key].version != appInfo.version;
+        const isDateUpdate = app[key].updateDate != appInfo.updateDate;
+        const isTimeUpdate = app[key].updateTime != appInfo.updateTime;
+        if (isVersionUpdate || isDateUpdate || isTimeUpdate) {
+          app[key] = appInfo;
+          updatedAppInfos.push(appInfo);
         }
       }
     }
-    console.log(JSON.stringify(targetJson, null, 2));
     writeJson(CONFIG.targetPath, targetJson);
-    return appInfos;
+    return updatedAppInfos;
   }
 }
