@@ -1,0 +1,26 @@
+{
+  "appInfo": {
+    "packages": [
+      {
+        "notion.id": {
+          "title": "Notion - notes, docs, tasks",
+          "appId": "notion.id",
+          "recentChanges": "Bug fixes and performance improvements.<br>",
+          "version": "0.6.1227",
+          "androidVersion": "8.0",
+          "developer": "Notion Labs, Inc."
+        }
+      },
+      {
+        "com.os.airforce": {
+          "title": "1945 Air Force: Airplane games",
+          "appId": "com.os.airforce",
+          "recentChanges": "- The Anniversary event.",
+          "version": "VARY",
+          "androidVersion": "5.0",
+          "developer": "ONESOFT GLOBAL PTE. LTD."
+        }
+      }
+    ]
+  }
+}

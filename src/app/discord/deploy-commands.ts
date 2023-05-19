@@ -2,8 +2,9 @@ import { DISCORD } from "config/discord";
 import { REST, Routes, SlashCommandBuilder } from "discord.js";
 import * as ping from "@discord/commands/ping";
 import * as search from "@discord/commands/search";
+import * as add from "@app/discord/commands/add";
 
-const commands = [ping.data, search.data];
+const commands = [ping.data, search.data, add.data];
 
 const rest = new REST({ version: "9" }).setToken(DISCORD.DISCORD_TOKEN);
 

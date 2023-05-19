@@ -22,16 +22,15 @@ export async function execute(interaction: CommandInteraction) {
     try {
       const appInfo = await playStoreRepo.searchPackageInfo(packageId);
       const appEmbeb = new EmbedBuilder()
-        .setTitle("Application Info")
+        .setTitle(appInfo.title)
         .addFields(
-          { name: "Name", value: appInfo.title },
           { name: "Version", value: appInfo.version },
           { name: "Android Version", value: appInfo.androidVersion },
           { name: "Install ", value: appInfo.installs }
         );
       return interaction.reply({ embeds: [appEmbeb] });
     } catch (e) {
-      return interaction.reply("Package invalid!");
+      return interaction.reply("Package-ID is invalid!");
     }
   }
 }
