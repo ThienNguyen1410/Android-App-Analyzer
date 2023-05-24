@@ -9,6 +9,7 @@ import { PlayStoreImpl } from "@impl/PlaystoreImpl";
 import { CronJob } from "cron";
 import axios from "axios";
 import FormData from "form-data";
+import { DEV_NAME } from "@constant/DevName";
 
 const CHANNEL_ID: string = DISCORD.CHANEL_ID;
 export const client = new Client({
@@ -26,10 +27,13 @@ client.once("ready", () => {
     return;
   }
   let job = new CronJob(
-    "0 9 * * *",
+    "* * * * *",
     async function () {
+      const URL =
+        "https://discord.com/api/webhooks/1109064535630946355/cx-ic7LhuOXleiaPlkI_Rv6Fo7d6vXkr5Muf1BVm1FTYTpX3V_iWIf5uZ7Cp6llnTSaR";
+      const URLVNG =
+        "https://discord.com/api/webhooks/1110773294493356073/L5kS4lAwMmFfCQ6EyQweu3oErSxKLKpfqvTZxG7QNAI7Rt_KSVr2Ac60FxK8J7_adpFp";
       const appInfos = await getAppInTarget.execute();
-
       const isAppsUpdate = appInfos.length != 0;
       if (isAppsUpdate) {
         for (const app of appInfos) {
@@ -39,7 +43,11 @@ client.once("ready", () => {
 
           var config = {
             method: "post",
-            url: "",
+            url:
+              app.developer === DEV_NAME.VNG ||
+              app.developer === DEV_NAME.ZALOPAY
+                ? URLVNG
+                : URL,
             data: data,
           };
           axios(config)

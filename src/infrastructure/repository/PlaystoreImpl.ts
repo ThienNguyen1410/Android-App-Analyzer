@@ -40,7 +40,6 @@ export class PlayStoreImpl implements PlayStoreRepository {
           spinner.succeed(
             chalk.hex(COLORS.success)(`Search completed : `) + ` ${packageId}`
           );
-          spinner.clear();
           resolve(items);
         })
         .catch((error) => {
@@ -64,6 +63,29 @@ export class PlayStoreImpl implements PlayStoreRepository {
           category: category as any,
           collection: googlePlay.collection.TOP_FREE,
         })
+        .then((appItems) => {
+          appItems.forEach((appItems) => {
+            spinner.succeed(
+              chalk.hex(COLORS.success)(`${appItems.title}`) +
+                ` : ${appItems.appId}`
+            );
+          });
+          resolve(appItems);
+        })
+        .catch((error) => {
+          spinner.fail(chalk.hex(COLORS.error)("ERROR") + ` : ${error}`);
+          reject(error);
+        });
+    });
+  }
+
+  searchDev(name: string): Promise<IAppItem[]> {
+    return new Promise((resolve, reject) => {
+      let spinner = ora(
+        chalk.hex(COLORS.running)("Listing") + ` developer ${name} `
+      ).start();
+      googlePlay
+        .developer({ devId: name })
         .then((appItems) => {
           appItems.forEach((appItems) => {
             spinner.succeed(

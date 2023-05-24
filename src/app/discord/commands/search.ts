@@ -21,13 +21,16 @@ export async function execute(interaction: CommandInteraction) {
     const playStoreRepo = new PlayStoreImpl();
     try {
       const appInfo = await playStoreRepo.searchPackageInfo(packageId);
-      const appEmbeb = new EmbedBuilder()
-        .setTitle(appInfo.title)
-        .addFields(
-          { name: "Version", value: appInfo.version },
-          { name: "Android Version", value: appInfo.androidVersion },
-          { name: "Install ", value: appInfo.installs }
-        );
+      const appEmbeb = new EmbedBuilder().setTitle(appInfo.title).addFields(
+        { name: "Version", value: appInfo.version },
+        { name: "Android Version", value: appInfo.androidVersion },
+        { name: "Developer ", value: appInfo.developer },
+        {
+          name: "Update note ",
+          value:
+            appInfo.recentChanges != undefined ? appInfo.recentChanges : "",
+        }
+      );
       return interaction.reply({ embeds: [appEmbeb] });
     } catch (e) {
       return interaction.reply("Package-ID is invalid!");
