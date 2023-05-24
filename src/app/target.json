@@ -7,85 +7,11 @@
           "appId": "notion.id",
           "recentChanges": "Bug fixes and performance improvements.<br>",
           "version": "0.6.1227",
-          "updateDate": "5/13/2023",
-          "updateTime": "7:15:51 AM",
+          "updateDate": "5/20/2023",
+          "updateTime": "1:47:43 AM",
+          "updateTimestamp": 1684522063000,
           "androidVersion": "8.0",
           "developer": "Notion Labs, Inc."
-        }
-      },
-      {
-        "com.os.airforce": {
-          "title": "1945 Air Force: Airplane games",
-          "appId": "com.os.airforce",
-          "recentChanges": "- The Anniversary event.",
-          "version": "VARY",
-          "updateDate": "4/18/2023",
-          "updateTime": "5:57:14 PM",
-          "androidVersion": "5.0",
-          "developer": "ONESOFT GLOBAL PTE. LTD."
-        }
-      },
-      {
-        "com.discord": {
-          "title": "Discord: Talk, Chat & Hang Out",
-          "appId": "com.discord",
-          "recentChanges": "We’ve been hard at work making Discord better for you. This includes bug fixes and performance enhancements. For more detailed information, go to your profile in the app and scroll down to “What’s New”.",
-          "version": "178.19 - Stable",
-          "updateDate": "5/16/2023",
-          "updateTime": "1:30:15 AM",
-          "updateTimestamp": 1684175415000,
-          "androidVersion": "6.0",
-          "developer": "Discord Inc."
-        }
-      },
-      {
-        "com.netflix.mediaclient": {
-          "title": "Netflix",
-          "appId": "com.netflix.mediaclient",
-          "recentChanges": "Get the best experience for enjoying recent hits and timeless classics with our latest Netflix update for your phone and tablet.",
-          "version": "VARY",
-          "updateDate": "5/12/2023",
-          "updateTime": "2:55:15 AM",
-          "updateTimestamp": 1683834915000,
-          "androidVersion": "VARY",
-          "developer": "Netflix, Inc."
-        }
-      },
-      {
-        "com.viki.android": {
-          "title": "Viki: Asian Dramas & Movies",
-          "appId": "com.viki.android",
-          "version": "23.4.1",
-          "updateDate": "5/2/2023",
-          "updateTime": "2:43:01 PM",
-          "updateTimestamp": 1683013381000,
-          "androidVersion": "6.0",
-          "developer": "Viki, Inc"
-        }
-      },
-      {
-        "vn.com.vng.zalopay": {
-          "title": "ZaloPay - Chạm là Thanh toán",
-          "appId": "vn.com.vng.zalopay",
-          "recentChanges": "Bản cập nhật 8.14.0 có gì mới?<br><br>Nâng cấp và cải thiện hiệu năng<br>ZaloPay tiếp tục được nâng cấp và hoàn thiện các tính năng để mang lại trải nghiệm tốt nhất.",
-          "version": "8.14.0",
-          "updateDate": "5/18/2023",
-          "updateTime": "6:14:44 PM",
-          "updateTimestamp": 1684408484000,
-          "androidVersion": "8.0",
-          "developer": "ZION JOINT STOCK COMPANY"
-        }
-      },
-      {
-        "com.mservice.momotransfer": {
-          "title": "MoMo: Chuyển tiền & Thanh toán",
-          "appId": "com.mservice.momotransfer",
-          "version": "4.0.21",
-          "updateDate": "5/10/2023",
-          "updateTime": "10:04:16 AM",
-          "updateTimestamp": 1683687856000,
-          "androidVersion": "6.0",
-          "developer": "M_SERVICE JSC"
         }
       }
     ]

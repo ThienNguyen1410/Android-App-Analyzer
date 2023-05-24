@@ -1,13 +1,14 @@
 import { DISCORD } from "config/discord";
-import { Client, EmbedBuilder, TextChannel } from "discord.js";
+import { Client, TextChannel } from "discord.js";
 import * as ping from "@discord/commands/ping";
 import * as search from "@discord/commands/search";
 import * as add from "@app/discord/commands/add";
 import { discordCommand } from "./deploy-commands";
-import { CONFIG } from "config/config";
 import { GetAppInTarget } from "@app/usecases/discord/GetAppInTarget";
 import { PlayStoreImpl } from "@impl/PlaystoreImpl";
 import { CronJob } from "cron";
+import axios from "axios";
+import FormData from "form-data";
 
 const CHANNEL_ID: string = DISCORD.CHANEL_ID;
 export const client = new Client({
@@ -32,14 +33,22 @@ client.once("ready", () => {
       const isAppsUpdate = appInfos.length != 0;
       if (isAppsUpdate) {
         for (const app of appInfos) {
-          const appEmbebs = new EmbedBuilder()
-            .setTitle(`App ${app.title} updated !`)
-            .addFields(
-              { name: "Version", value: app.version },
-              { name: "Date", value: app.updateDate },
-              { name: "Time ", value: app.updateTime }
-            );
-          channel.send({ embeds: [appEmbebs] });
+          var data = new FormData();
+          data.append("username", app.title);
+          data.append("content", JSON.stringify(app, null, 2));
+
+          var config = {
+            method: "post",
+            url: "",
+            data: data,
+          };
+          axios(config)
+            .then(function (response) {
+              console.log(JSON.stringify(response.data));
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
         }
       }
     },

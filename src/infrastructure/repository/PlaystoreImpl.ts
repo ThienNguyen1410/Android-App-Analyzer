@@ -1,11 +1,11 @@
 import { PlayStoreRepository } from "@repositories/PlayStoreRepository";
 import chalk from "chalk";
 import { COLORS } from "config/colors";
-import googlePlay, { IAppItemFullDetail } from "google-play-scraper";
+import googlePlay, { IAppItem, IAppItemFullDetail } from "google-play-scraper";
 import ora from "ora";
 
 export class PlayStoreImpl implements PlayStoreRepository {
-  searchPackage(keyword: string): Promise<IAppItemFullDetail[]> {
+  searchPackage(keyword: string): Promise<IAppItem[]> {
     return new Promise((resolve, reject) => {
       let spinner = ora(
         chalk.hex(COLORS.success)("Searching") +
@@ -53,7 +53,7 @@ export class PlayStoreImpl implements PlayStoreRepository {
     });
   }
 
-  listAppInTopFree(category: string): Promise<googlePlay.IAppItemFullDetail[]> {
+  listAppInTopFree(category: string): Promise<googlePlay.IAppItem[]> {
     return new Promise((resolve, reject) => {
       let spinner = ora(
         chalk.hex(COLORS.running)("Listing") +

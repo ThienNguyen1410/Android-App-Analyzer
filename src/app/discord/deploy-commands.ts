@@ -10,9 +10,12 @@ const rest = new REST({ version: "9" }).setToken(DISCORD.DISCORD_TOKEN);
 
 export const discordCommand = () => {
   rest
-    .put(Routes.applicationGuildCommands(DISCORD.CLIENT_ID, DISCORD.GUILD_ID), {
-      body: commands,
-    })
+    .post(
+      Routes.applicationGuildCommands(DISCORD.CLIENT_ID, DISCORD.GUILD_ID),
+      {
+        body: commands,
+      }
+    )
     .then(() => console.log("Deploy commmands successfully !"))
     .catch(console.error);
 };
