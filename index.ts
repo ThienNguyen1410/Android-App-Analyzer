@@ -1,7 +1,7 @@
 import { ArgsParser } from "@utils/ArgsParser";
 import { APKToolImpl } from "@impl/APKToolImpl";
 import { TermRepositoryImpl } from "@impl/TermRepositoryImpl";
-import googlePlay, { app } from "google-play-scraper";
+import googlePlay from "google-play-scraper";
 import { APKPureRepoImpl } from "@impl/APKPureRepoImpl";
 import { PlayStoreImpl } from "@impl/PlaystoreImpl";
 import chalk from "chalk";
@@ -128,7 +128,10 @@ const searchPackage = async () => {
     }
   } else if (packageId != undefined) {
     const appInfo = await playStoreRepo.searchPackageInfo(packageId);
-    console.log(appInfo.version);
+    console.log(appInfo);
+    await playStoreRepo.searchDeveloper(
+      "VNG Corporation - Công ty Cổ phần VNG"
+    );
   }
 };
 
