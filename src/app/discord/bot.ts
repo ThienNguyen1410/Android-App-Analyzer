@@ -29,10 +29,8 @@ client.once("ready", () => {
   let job = new CronJob(
     "* * * * *",
     async function () {
-      const URL =
-        "https://discord.com/api/webhooks/1109064535630946355/cx-ic7LhuOXleiaPlkI_Rv6Fo7d6vXkr5Muf1BVm1FTYTpX3V_iWIf5uZ7Cp6llnTSaR";
-      const URLVNG =
-        "https://discord.com/api/webhooks/1110773294493356073/L5kS4lAwMmFfCQ6EyQweu3oErSxKLKpfqvTZxG7QNAI7Rt_KSVr2Ac60FxK8J7_adpFp";
+      const URL1 = "";
+      const URL2 = "";
       const appInfos = await getAppInTarget.execute();
       const isAppsUpdate = appInfos.length != 0;
       if (isAppsUpdate) {
@@ -43,20 +41,21 @@ client.once("ready", () => {
 
           var config = {
             method: "post",
+            timeout: 60000,
             url:
               app.developer === DEV_NAME.VNG ||
               app.developer === DEV_NAME.ZALOPAY
-                ? URLVNG
-                : URL,
+                ? URL2
+                : URL1,
             data: data,
           };
-          axios(config)
-            .then(function (response) {
-              console.log(JSON.stringify(response.data));
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
+          try {
+            const response = await axios(config);
+            console.log(JSON.stringify(response.status, null, 2));
+            console.log(JSON.stringify(response.data, null, 2));
+          } catch (error) {
+            console.log(error);
+          }
         }
       }
     },
