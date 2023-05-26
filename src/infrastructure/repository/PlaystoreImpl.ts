@@ -53,6 +53,7 @@ export class PlayStoreImpl implements PlayStoreRepository {
 
   listAppInTopFree(category: string): Promise<googlePlay.IAppItem[]> {
     return new Promise((resolve, reject) => {
+      let test: { [key: string]: {} }[] = [];
       let spinner = ora(
         chalk.hex(COLORS.running)("Listing") +
           " app in TOP FREE category of Play Store"
@@ -68,7 +69,9 @@ export class PlayStoreImpl implements PlayStoreRepository {
               chalk.hex(COLORS.success)(`${appItems.title}`) +
                 ` : ${appItems.appId}`
             );
+            test.push({ [appItems.appId]: {} });
           });
+          console.log(test);
           resolve(appItems);
         })
         .catch((error) => {
