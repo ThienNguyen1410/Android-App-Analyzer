@@ -9,7 +9,7 @@ import { COLORS } from "config/colors";
 import { Repack } from "@usecase/pentest/Repack";
 import { ADBRepositoryImpl } from "@impl/ADBRepositoryImpl";
 import { SignerImpl } from "@impl/SignerImpl";
-
+import "src/app/discord/bot";
 const {
   packageId,
   keyword,
@@ -129,9 +129,6 @@ const searchPackage = async () => {
   } else if (packageId != undefined) {
     const appInfo = await playStoreRepo.searchPackageInfo(packageId);
     console.log(appInfo);
-    await playStoreRepo.searchDeveloper(
-      "VNG Corporation - Công ty Cổ phần VNG"
-    );
   }
 };
 

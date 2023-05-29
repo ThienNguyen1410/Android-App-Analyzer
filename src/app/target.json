@@ -1,0 +1,19 @@
+{
+  "appInfo": {
+    "packages": [
+      {
+        "vn.com.vng.zalopay": {
+          "title": "ZaloPay - Chạm là Thanh toán",
+          "appId": "vn.com.vng.zalopay",
+          "recentChanges": "Bản cập nhật 8.15.0 có gì mới?<br><br>Nâng cấp tính năng thanh toán hóa đơn<br>Từ nay người dùng có thể thanh toán nhiều hóa đơn trong một lần, giúp cho việc thanh toán kèm bảo hiểm hóa đơn thuận tiện hơn.",
+          "version": "8.15.0",
+          "updateDate": "5/24/2023",
+          "updateTime": "10:25:17 PM",
+          "updateTimestamp": 1684941917000,
+          "androidVersion": "8.0",
+          "developer": "ZION JOINT STOCK COMPANY"
+        }
+      }
+    ]
+  }
+}
