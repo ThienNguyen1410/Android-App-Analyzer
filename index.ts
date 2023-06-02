@@ -9,7 +9,8 @@ import { COLORS } from "config/colors";
 import { Repack } from "@usecase/pentest/Repack";
 import { ADBRepositoryImpl } from "@impl/ADBRepositoryImpl";
 import { SignerImpl } from "@impl/SignerImpl";
-import "src/app/discord/bot";
+// Enable discord bot
+// import "src/app/discord/bot";
 const {
   packageId,
   keyword,
@@ -93,7 +94,9 @@ const searchPackage = async () => {
     //   .catch((error) => console.log(error));
   } else if (keyword != undefined) {
     const appInfo = await playStoreRepo.searchPackage(keyword);
-    console.log(appInfo);
+    appInfo.forEach((app) => {
+      console.log(app.appId);
+    });
   } else if (packageId != undefined && download) {
     try {
       const appItem = await playStoreRepo.searchPackageInfo(packageId);
