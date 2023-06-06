@@ -49,9 +49,7 @@ export class GetAppInTarget {
         }
 
         const isVersionUpdate = app[key].version != appInfo.version;
-        const isDateUpdate = app[key].updateDate != appInfo.updateDate;
-        const isTimeUpdate = app[key].updateTime != appInfo.updateTime;
-        if (isVersionUpdate || isDateUpdate || isTimeUpdate) {
+        if (isVersionUpdate) {
           app[key] = appInfo;
           updatedAppInfos.push(appInfo);
         }
