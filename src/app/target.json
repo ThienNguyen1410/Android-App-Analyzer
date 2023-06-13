@@ -2,16 +2,534 @@
   "appInfo": {
     "packages": [
       {
+        "newway.open.chatgpt.ai.chat.bot.free": {
+          "title": "Chatbot AI - Ask AI anything",
+          "appId": "newway.open.chatgpt.ai.chat.bot.free",
+          "version": "1.6.8",
+          "androidVersion": "5.0",
+          "developer": "Newway Apps"
+        }
+      },
+      {
+        "co.appnation.geniechat": {
+          "title": "Genie - AI Chatbot",
+          "appId": "co.appnation.geniechat",
+          "recentChanges": "Bug fixes",
+          "version": "5.1.1",
+          "androidVersion": "7.0",
+          "developer": "AppNation Ltd"
+        }
+      },
+      {
+        "com.codeway.chatapp": {
+          "title": "Ask AI - Chat with Chatbot",
+          "appId": "com.codeway.chatapp",
+          "recentChanges": "We fixed some pesky bugs and improved the overall performance of the app.<br><br>Greetings from ASK AI Team",
+          "version": "1.0.991",
+          "androidVersion": "8.0",
+          "developer": "Codeway Dijital"
+        }
+      },
+      {
+        "com.Beauchamp.Messenger.external": {
+          "title": "Chai - Chat with AI Friends",
+          "appId": "com.Beauchamp.Messenger.external",
+          "recentChanges": "Bug fixes &amp; improvements.",
+          "version": "0.4.71",
+          "androidVersion": "6.0",
+          "developer": "Chai Research Corp."
+        }
+      },
+      {
+        "com.scaleup.chatai": {
+          "title": "ChatGPT powered Chat - Nova AI",
+          "appId": "com.scaleup.chatai",
+          "recentChanges": "Bug fixes and performance improvements",
+          "version": "VARY",
+          "androidVersion": "VARY",
+          "developer": "ScaleUp"
+        }
+      },
+      {
+        "com.intelli.app": {
+          "title": "Chatbot - GPT AI Chat, Ask AI",
+          "appId": "com.intelli.app",
+          "recentChanges": "- Minor bug fixes<br>- Minor improvements",
+          "version": "2.1.0",
+          "androidVersion": "6.0",
+          "developer": "AppLab Kamil Piekarz"
+        }
+      },
+      {
+        "anima.virtual.ai.robot.friend": {
+          "title": "Anima: AI Friend & Companion",
+          "appId": "anima.virtual.ai.robot.friend",
+          "version": "2.49.1",
+          "androidVersion": "8.0",
+          "developer": "Anima AI Ltd"
+        }
+      },
+      {
+        "bot.touchkin": {
+          "title": "Wysa: Anxiety, therapy chatbot",
+          "appId": "bot.touchkin",
+          "recentChanges": "- Get to the right ✅ tools and techniques 🛠faster than ever before, with the all new 🎀 Wysa design<br>- Direct access to 🆘, and related resources. Please note this is not a crisis app.<br>- Scroll ⬆ through the suggestion feed, to discover what Wysa thinks you may find interesting🤔. <br>- Directly manage notifications 🔔 via settings ⚙<br>- Convenient access to manage subscription 🗓 via settings ⚙",
+          "version": "3.2.1",
+          "androidVersion": "4.1",
+          "developer": "Touchkin"
+        }
+      },
+      {
+        "ai.replika.app": {
+          "title": "Replika: My AI Friend",
+          "appId": "ai.replika.app",
+          "version": "11.2.2",
+          "androidVersion": "8.0",
+          "developer": "Luka, Inc"
+        }
+      },
+      {
+        "com.ifriend.app": {
+          "title": "EVA AI (ex Journey) Chat Bot",
+          "appId": "com.ifriend.app",
+          "version": "3.32.0",
+          "androidVersion": "6.0",
+          "developer": "Novi Limited"
+        }
+      },
+      {
+        "com.horsemen.ai.chat.gpt": {
+          "title": "AI Chat-Chat with chatbot",
+          "appId": "com.horsemen.ai.chat.gpt",
+          "recentChanges": "fix bug",
+          "version": "1.0.8",
+          "androidVersion": "5.0",
+          "developer": "Horsemen AI"
+        }
+      },
+      {
+        "com.facebook.videodownload.videodownloaderforfacebook": {
+          "title": "AI ChatBot AI Friend Character",
+          "appId": "com.facebook.videodownload.videodownloaderforfacebook",
+          "recentChanges": "﻿Now, let&#39;s introduce the new features of AI Chat<br>- Improve performance and optimize experience<br>Enjoy interacting with highly intelligent AI rbots!",
+          "version": "3.0.2.0",
+          "androidVersion": "6.0",
+          "developer": "VIDEOSHOW Video Editor & Maker & AI Chat Generator"
+        }
+      },
+      {
+        "ai.chat.gpt.bot": {
+          "title": "ChatOn - AI Chat Bot Assistant",
+          "appId": "ai.chat.gpt.bot",
+          "version": "1.12.149-146",
+          "androidVersion": "8.0",
+          "developer": "AIBY Inc."
+        }
+      },
+      {
+        "air.kengineairpro": {
+          "title": "Chatbot roBot",
+          "appId": "air.kengineairpro",
+          "version": "3.5.6",
+          "androidVersion": "5.0",
+          "developer": "AIRBITS & Reactive Phone"
+        }
+      },
+      {
+        "com.chatbot.ai.aichat.openaibot.chat": {
+          "title": "ChatAI: AI Chatbot App",
+          "appId": "com.chatbot.ai.aichat.openaibot.chat",
+          "recentChanges": "- OpenAI Chat<br>- AI ChatBot<br>- Chat AI<br>- Optimizes app",
+          "version": "6.6",
+          "androidVersion": "5.0",
+          "developer": "iKame Applications - Begamob Apps"
+        }
+      },
+      {
+        "com.muthadevelopers.weargpt": {
+          "title": "WearGPT",
+          "appId": "com.muthadevelopers.weargpt",
+          "recentChanges": "The user will now need to generate and use his/her own OpenAI&#39;s API Key<br>Added API Key generation information in settings activity.<br>Enhanced UI Elements for better readability.<br>Solved known bugs.<br>Added more information",
+          "version": "2.0",
+          "androidVersion": "9",
+          "developer": "Anuj M. & Yash M."
+        }
+      },
+      {
+        "com.ai.chat.bot.aichat": {
+          "title": "Chat AI - AI Chatbot Assistant",
+          "appId": "com.ai.chat.bot.aichat",
+          "recentChanges": "Fixed some crash.",
+          "version": "1.4.5",
+          "androidVersion": "8.0",
+          "developer": "SEA MOBILE LTD"
+        }
+      },
+      {
+        "com.microsoft.bing": {
+          "title": "Bing: Chat with AI & GPT-4",
+          "appId": "com.microsoft.bing",
+          "recentChanges": "1. Faster, more accurate, more capable. The new Bing runs on a next-generation OpenAI large language model. This new language model is more powerful than ChatGPT and customized for search.  <br><br>2. More relevant, timely, targeted results – all with improved safety. Microsoft Prometheus Model. Our proprietary technology – the Microsoft Prometheus Model – is a collection of capabilities that best leverages the power of OpenAI.",
+          "version": "VARY",
+          "androidVersion": "7.0",
+          "developer": "Microsoft Corporation"
+        }
+      },
+      {
+        "com.peace.AiChat": {
+          "title": "AI Chat by GPT",
+          "appId": "com.peace.AiChat",
+          "version": "3.2.0",
+          "androidVersion": "6.0",
+          "developer": "Peace"
+        }
+      },
+      {
+        "com.tiptop.ai.chat.gpt": {
+          "title": "AI Chat-AI Chatbot Assistant",
+          "appId": "com.tiptop.ai.chat.gpt",
+          "version": "1.1.3",
+          "androidVersion": "5.0",
+          "developer": "Tiptop AI"
+        }
+      },
+      {
+        "com.ego.chatai": {
+          "title": "Ask AI - AI Chat",
+          "appId": "com.ego.chatai",
+          "recentChanges": "* New feature: Web AI Browser.<br>* UI improvements.<br>* Bug fixes.",
+          "version": "1.2",
+          "androidVersion": "5.0",
+          "developer": "Axis Inc"
+        }
+      },
+      {
+        "com.paragraphai.paragraphai": {
+          "title": "ParagraphAI: GPT Writer & Chat",
+          "appId": "com.paragraphai.paragraphai",
+          "recentChanges": "UI Updates",
+          "version": "1.74",
+          "androidVersion": "5.0",
+          "developer": "ParagraphAI Inc."
+        }
+      },
+      {
+        "com.Appskilled.AIChatbot": {
+          "title": "ChatGPT: Chat GPT-4 Cleverbot",
+          "appId": "com.Appskilled.AIChatbot",
+          "recentChanges": "We decided to go big in this version: <br><br>Added 60+ Pre-built AI prompts to help you with your daily to-do&#39;s . <br>Improved AI algorithms for even more accurate and intelligent responses. <br>New voice recognition capabilities for hands-free interaction. <br>Optimized the AI Chat History Feature to include entries from pre-built AI prompts. <br>We did some rebranding as well to give the app the vibrant and refreshing new look! <br>Optimized user interface for a seamless chat experience.",
+          "version": "2.1.2",
+          "androidVersion": "6.0",
+          "developer": "AI Powered Solutions By Appskilled"
+        }
+      },
+      {
+        "com.dominapp.supergpt": {
+          "title": "SuperGPT - AI with GPT-4",
+          "appId": "com.dominapp.supergpt",
+          "recentChanges": "SuperGPT - Get a Powerful AI with neural voice responses and incredible images generated by text. <br>** Art AI - Create stunning images by text prompts<br>New ChatGPT API is available!",
+          "version": "1.8",
+          "androidVersion": "6.0",
+          "developer": "BlueTo"
+        }
+      },
+      {
+        "ai.chat.gpt.app": {
+          "title": "AI Chat - AI Chatbot Assistant",
+          "appId": "ai.chat.gpt.app",
+          "recentChanges": "AI Chat with ChatGPT v1.2.1",
+          "version": "1.2.1",
+          "androidVersion": "6.0",
+          "developer": "Sage AI"
+        }
+      },
+      {
+        "com.phatgpt": {
+          "title": "Phat GPT: AI ChatGPT bot & Art",
+          "appId": "com.phatgpt",
+          "recentChanges": "Hello folks! <br><br>It will now suggest follow up questions to ask. When you ask your first question, you&#39;ll get 3 related/interesting follow up suggestions.<br><br>I&#39;ve also fixed a couple of weird bugs with the whatsapp integration.",
+          "version": "1.3.3",
+          "androidVersion": "5.0",
+          "developer": "Tom Jordan"
+        }
+      },
+      {
+        "com.codecandy.aiassistant": {
+          "title": "Character AI Assistant Widget",
+          "appId": "com.codecandy.aiassistant",
+          "recentChanges": "We&#39;ve made some small changes under the hood to keep everything running smoothly!",
+          "version": "1.6.0",
+          "androidVersion": "5.0",
+          "developer": "CodeCandy Studio"
+        }
+      },
+      {
+        "io.forestsoft.secretarychat": {
+          "title": "AI Chat Assistant (By GPT)",
+          "appId": "io.forestsoft.secretarychat",
+          "version": "1.2.41",
+          "androidVersion": "7.0",
+          "developer": "gaga.chat"
+        }
+      },
+      {
+        "com.womboai.wombodream": {
+          "title": "WOMBO Dream - AI Art Generator",
+          "appId": "com.womboai.wombodream",
+          "version": "3.1.0",
+          "androidVersion": "7.1",
+          "developer": "Wombo Studios Inc"
+        }
+      },
+      {
+        "com.vyroai.aiart": {
+          "title": "Imagine : AI Art Generator",
+          "appId": "com.vyroai.aiart",
+          "version": "2.6.7",
+          "androidVersion": "6.0",
+          "developer": "Vyro AI"
+        }
+      },
+      {
+        "ai.girlfriend.virtual.dating.lover.igirl": {
+          "title": "iGirl: Virtual AI Girlfriend",
+          "appId": "ai.girlfriend.virtual.dating.lover.igirl",
+          "version": "2.49.1",
+          "androidVersion": "8.0",
+          "developer": "Anima AI Ltd"
+        }
+      },
+      {
+        "com.codeway.wonder": {
+          "title": "Wonder - AI Art Generator",
+          "appId": "com.codeway.wonder",
+          "version": "3.2.0",
+          "androidVersion": "5.0",
+          "developer": "Codeway Dijital"
+        }
+      },
+      {
+        "com.ai.polyverse.mirror": {
+          "title": "AI Mirror: AI Art Photo Editor",
+          "appId": "com.ai.polyverse.mirror",
+          "recentChanges": "We&#39;ve added tons of new features to our app, including Hi-Res the generated image, a mysterious template, and support for multiple languages. Get ready for an even better experience!",
+          "version": "2.2.8",
+          "androidVersion": "5.0",
+          "developer": "POLYVERSE INC."
+        }
+      },
+      {
+        "com.aidungeon": {
+          "title": "AI Dungeon",
+          "appId": "com.aidungeon",
+          "version": "1.1.178",
+          "androidVersion": "8.0",
+          "developer": "Latitude Inc."
+        }
+      },
+      {
+        "ai.generated.art.maker.image.picture.photo.generator.painting": {
+          "title": "AI ARTA: Art & Photo Generator",
+          "appId": "ai.generated.art.maker.image.picture.photo.generator.painting",
+          "recentChanges": "Great news!<br>In this version, we’ve added a quick tutorial about the app’s features to help you create your first masterpiece.<br><br>If you enjoy the app, please rate us or leave your review. ",
+          "version": "2.13.5",
+          "androidVersion": "10",
+          "developer": "AIBY Inc."
+        }
+      },
+      {
+        "com.bendingspoons.dawn.ai": {
+          "title": "Dawn AI - Avatar Generator",
+          "appId": "com.bendingspoons.dawn.ai",
+          "version": "3.1.4.93",
+          "androidVersion": "6.0",
+          "developer": "Splice Video Editor"
+        }
+      },
+      {
+        "com.starryai": {
+          "title": "starryai - AI Art Generator",
+          "appId": "com.starryai",
+          "version": "1.11.0",
+          "androidVersion": "5.0",
+          "developer": "starryai Inc."
+        }
+      },
+      {
+        "com.withfeelingai.test": {
+          "title": "Paradot: Virtual Being to Chat",
+          "appId": "com.withfeelingai.test",
+          "version": "1.3.8",
+          "androidVersion": "7.0",
+          "developer": "WITHFEELING.AI"
+        }
+      },
+      {
+        "com.picso.android": {
+          "title": "PicSo – Customize Your AI Girl",
+          "appId": "com.picso.android",
+          "recentChanges": "Bug fixes and performance improvements.",
+          "version": "1.14.0",
+          "androidVersion": "5.0",
+          "developer": "Meta Insight"
+        }
+      },
+      {
+        "vnggames.volam.kiemthe.origin": {
+          "title": "Kiếm Thế Origin VNG",
+          "appId": "vnggames.volam.kiemthe.origin",
+          "recentChanges": "+ Ra mắt môn phái mới Nga Mi <br>+ Bách Bảo Rương tái xuất <br>+ Chiến trường Tần Lăng &amp; Di tích Hàn Vũ <br>+ Tính năng Kết bái huynh đệ <br>+ Giải đấu 3vs3 kinh điển Vô Song Hào Kiệt ",
+          "version": "2.9.10",
+          "androidVersion": "5.1",
+          "developer": "VNG Corporation - Công ty Cổ phần VNG"
+        }
+      },
+      {
+        "com.vng.playtogether": {
+          "title": "Play Together VNG",
+          "appId": "com.vng.playtogether",
+          "recentChanges": "Chỉnh sửa lỗi game",
+          "version": "1.60.1",
+          "androidVersion": "6.0",
+          "developer": "VNG Corporation - Công ty Cổ phần VNG"
+        }
+      },
+      {
+        "com.riotgames.league.wildriftvn": {
+          "title": "LMHT: Tốc Chiến",
+          "appId": "com.riotgames.league.wildriftvn",
+          "version": "4.2.0.6759",
+          "androidVersion": "5.0",
+          "developer": "VNG Corporation - Công ty Cổ phần VNG"
+        }
+      },
+      {
+        "vng.games.revelation.mobile": {
+          "title": "Revelation: Infinite Journey",
+          "appId": "vng.games.revelation.mobile",
+          "version": "0.18.0",
+          "androidVersion": "4.4",
+          "developer": "VNG Corporation - Công ty Cổ phần VNG"
+        }
+      },
+      {
+        "com.vng.onepunchman": {
+          "title": "One Punch Man: The Strongest",
+          "appId": "com.vng.onepunchman",
+          "recentChanges": "Thay đổi app icon<br>Ưu hóa nâng cao trải nghiệm người dùng<br>Cập nhật phiên bản mới nhất",
+          "version": "1.4.0",
+          "androidVersion": "5.0",
+          "developer": "VNG Corporation - Công ty Cổ phần VNG"
+        }
+      },
+      {
+        "vnggames.volamafk.idle.vn": {
+          "title": "Võ Lâm Nhàn Hiệp VNG",
+          "appId": "vnggames.volamafk.idle.vn",
+          "recentChanges": "·        Khắc phục sự cố khó khăn khi đăng nhập<br>·        Tối ưu hóa tính năng<br>·        Cải tiến một số UI khác",
+          "version": "1.0.12",
+          "androidVersion": "5.0",
+          "developer": "VNG Corporation - Công ty Cổ phần VNG"
+        }
+      },
+      {
+        "com.wyd.gunpow": {
+          "title": "GunPow - Bắn Gà Teen PK",
+          "appId": "com.wyd.gunpow",
+          "recentChanges": "1. Tính năng mới: Voice Chat<br>2. Tính năng mới: Nông Trại<br>3.Tính năng mới: Trường Học<br>4.Tính năng mới: Triệu Hồi<br>5.Tính Năng mới: Linh Thạch<br>6.Tính năng mới:Trang bị Skin<br>7.Ưu hóa UI<br>8.Ưu hóa ghép đấu<br>9.Fix bug",
+          "version": "1.9.8",
+          "androidVersion": "4.3",
+          "developer": "VNG Corporation - Công ty Cổ phần VNG"
+        }
+      },
+      {
+        "vng.game.sky.fantasy.song.vn": {
+          "title": "Cloud Song: Vân Thành Chi Ca",
+          "appId": "vng.game.sky.fantasy.song.vn",
+          "recentChanges": "Ưu hóa trải nghiệm người dùng.",
+          "version": "1.3.0",
+          "androidVersion": "4.4",
+          "developer": "VNG Corporation - Công ty Cổ phần VNG"
+        }
+      },
+      {
+        "vn.vng.uprace": {
+          "title": "UpRace",
+          "appId": "vn.vng.uprace",
+          "recentChanges": "- Improve steps feature<br>- Connect 3rd activity<br>- Improve ranking<br>- Fixbugs",
+          "version": "3.4.0",
+          "androidVersion": "5.1",
+          "developer": "VNG Corporation - Công ty Cổ phần VNG"
+        }
+      },
+      {
+        "zing.vng.nhatmonggiangho.soluuhuong": {
+          "title": "Nhất Mộng Giang Hồ VNG",
+          "appId": "zing.vng.nhatmonggiangho.soluuhuong",
+          "recentChanges": "- Fix some bugs",
+          "version": "54.0",
+          "androidVersion": "4.2",
+          "developer": "VNG Corporation - Công ty Cổ phần VNG"
+        }
+      },
+      {
+        "adventure.rpg.anime.game.vng.ys6": {
+          "title": "Ys 6 Mobile VNG",
+          "appId": "adventure.rpg.anime.game.vng.ys6",
+          "recentChanges": "User experience optimization",
+          "version": "1.2.5",
+          "androidVersion": "4.3",
+          "developer": "VNG Corporation - Công ty Cổ phần VNG"
+        }
+      },
+      {
         "vn.com.vng.zalopay": {
           "title": "ZaloPay - Chạm là Thanh toán",
           "appId": "vn.com.vng.zalopay",
-          "recentChanges": "Bản cập nhật 8.15.0 có gì mới?<br><br>Nâng cấp tính năng thanh toán hóa đơn<br>Từ nay người dùng có thể thanh toán nhiều hóa đơn trong một lần, giúp cho việc thanh toán kèm bảo hiểm hóa đơn thuận tiện hơn.",
-          "version": "8.15.0",
-          "updateDate": "5/24/2023",
-          "updateTime": "10:25:17 PM",
-          "updateTimestamp": 1684941917000,
+          "recentChanges": "Bản cập nhật 8.17.0 có gì mới?<br><br>Nâng cấp và cải thiện hiệu năng<br>ZaloPay tiếp tục được nâng cấp và hoàn thiện các tính năng để mang lại trải nghiệm tốt nhất.",
+          "version": "8.17.0",
           "androidVersion": "8.0",
           "developer": "ZION JOINT STOCK COMPANY"
+        }
+      },
+      {
+        "com.scaleup.chatai": {
+          "title": "ChatGPT powered Chat - Nova AI",
+          "appId": "com.scaleup.chatai",
+          "recentChanges": "Bug fixes and performance improvements",
+          "version": "VARY",
+          "androidVersion": "VARY",
+          "developer": "ScaleUp"
+        }
+      },
+      {
+        "com.microsoft.bing": {
+          "title": "Bing: Chat with AI & GPT-4",
+          "appId": "com.microsoft.bing",
+          "recentChanges": "1. Faster, more accurate, more capable. The new Bing runs on a next-generation OpenAI large language model. This new language model is more powerful than ChatGPT and customized for search.  <br><br>2. More relevant, timely, targeted results – all with improved safety. Microsoft Prometheus Model. Our proprietary technology – the Microsoft Prometheus Model – is a collection of capabilities that best leverages the power of OpenAI.",
+          "version": "VARY",
+          "androidVersion": "7.0",
+          "developer": "Microsoft Corporation"
+        }
+      },
+      {
+        "com.ai.polyverse.mirror": {
+          "title": "AI Mirror: AI Art Photo Editor",
+          "appId": "com.ai.polyverse.mirror",
+          "recentChanges": "We&#39;ve added tons of new features to our app, including Hi-Res the generated image, a mysterious template, and support for multiple languages. Get ready for an even better experience!",
+          "version": "2.2.8",
+          "androidVersion": "5.0",
+          "developer": "POLYVERSE INC."
+        }
+      },
+      {
+        "com.starmakerinteractive.starmaker": {
+          "title": "StarMaker: Sing Karaoke Songs",
+          "appId": "com.starmakerinteractive.starmaker",
+          "recentChanges": "1. Added a demonstration of party room invitation. <br>2. Family moments upgraded to help family members interact better. <br>3. New functions adding to virtual looks, including giving likes, sending gifts and camera. <br>4. Daily task page upgrade.",
+          "version": "8.37.2",
+          "androidVersion": "5.0",
+          "developer": "STAR SHINE ENTERTAINMENT PTE. LTD."
         }
       }
     ]

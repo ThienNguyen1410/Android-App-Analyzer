@@ -16,7 +16,6 @@ export class APKPureRepoImpl implements IAPKPureRepo {
     try {
       await driver.wait(until.elementLocated(By.className(className)), timeout);
     } catch (error) {
-      driver.quit();
       throw new Error(`Unable to locate element : ${className} `);
     }
   }
@@ -48,8 +47,7 @@ export class APKPureRepoImpl implements IAPKPureRepo {
       ` : ${appName} from m.apkpure.com...`;
     let spinner = ora({ text: spinnerText }).start();
     const downloadPath = CONFIG.dir + packageId;
-    const uBlockExtension =
-      "/Users/Thien/Android-App-Analyzer/extensions/uBlock0_1.49.3b10.firefox.signed.xpi";
+    const uBlockExtension = CONFIG.uBlockPath;
 
     let firefoxOptions = new firefox.Options();
     firefoxOptions.addArguments("--headless");
@@ -73,24 +71,30 @@ export class APKPureRepoImpl implements IAPKPureRepo {
       // Click Download Btn
       driver.get(`${CONFIG.downloadURL}/${packageId}/download`);
       await this.waitForElementToLoad(driver, "download-start-btn");
-      const download = driver.findElement(By.className("download-start-btn"));
-      download.click();
-      const isDownloadComplete = await this.checkDownloadComplete(
-        downloadPath,
-        CONFIG.TIME
+      const download = await driver.findElements(
+        By.className("download-start-btn")
       );
-      if (isDownloadComplete) {
-        spinner.succeed(
-          chalk.hex(COLORS.success)("Downloaded") + ` : ${appName} success !`
+      if (download.length > 0) {
+        download[0].click();
+        const isDownloadComplete = await this.checkDownloadComplete(
+          downloadPath,
+          CONFIG.TIME
         );
-        driver.quit();
+        if (isDownloadComplete) {
+          spinner.succeed(
+            chalk.hex(COLORS.success)("Downloaded") + ` : ${appName} success !`
+          );
+          driver.quit();
+        }
+      } else {
+        console.log("Download-btn does not exist !");
       }
     } catch (error) {
-      driver.quit();
-      throw spinner.fail(
+      spinner.fail(
         chalk.hex(COLORS.error)("Error") +
           ` when download apk in apkpure : ${error}`
       );
+      driver.quit();
     }
 
     return downloadPath;

@@ -6,11 +6,26 @@ import ora from "ora";
 
 export class TermRepositoryImpl implements ITerm {
   async listFile(path: string): Promise<string> {
+    let spinner = ora({ text: "Start list file" }).start();
     try {
       const [output, _] = await callAsync(`find ${path} -type f`);
+      spinner.succeed(chalk.hex(COLORS.success)(`Listed file : ${output} `));
       return output;
     } catch (err) {
-      throw new Error(`Eror when list file at path ${path}`);
+      spinner.fail(chalk.hex(COLORS.error)("File not exist") + ` ${path}`);
+      return "";
+    }
+  }
+
+  async listAPK(path: string): Promise<string> {
+    let spinner = ora({ text: "Start listing apks : " }).start();
+    try {
+      const [output, _] = await callAsync(`ls ${path}`);
+      spinner.succeed(chalk.hex(COLORS.success)(`Listed file : ${output} `));
+      return output;
+    } catch (err) {
+      spinner.fail(chalk.hex(COLORS.error)("File not exist") + ` ${path}`);
+      return "";
     }
   }
   async unzipFile(file: string, destination: string): Promise<boolean> {

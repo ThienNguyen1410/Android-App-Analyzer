@@ -11,7 +11,7 @@ export class ADBRepositoryImpl implements ADBRepository {
     let spinner = ora(chalk.hex(COLORS.running)("Checking device...")).start();
     try {
       await callAsync(`${CONSTANT.ADB.device}`);
-      spinner.succeed(chalk.hex(COLORS.success)("Device connected"));
+      spinner.succeed(chalk.hex(COLORS.success)("Device connected !"));
       return true;
     } catch (error) {
       spinner.fail(chalk.hex(COLORS.error)("Device not connected ! "));
