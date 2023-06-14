@@ -21,7 +21,9 @@ export class TermRepositoryImpl implements ITerm {
     let spinner = ora({ text: "Start listing apks : " }).start();
     try {
       const [output, _] = await callAsync(`ls ${path}`);
-      spinner.succeed(chalk.hex(COLORS.success)(`Listed file : ${output} `));
+      spinner.succeed(
+        chalk.hex(COLORS.success)(`Listed file in path : ${path} !`)
+      );
       return output;
     } catch (err) {
       spinner.fail(chalk.hex(COLORS.error)("File not exist") + ` ${path}`);
@@ -29,11 +31,18 @@ export class TermRepositoryImpl implements ITerm {
     }
   }
   async unzipFile(file: string, destination: string): Promise<boolean> {
+    let spinner = ora(
+      chalk.hex(COLORS.success)("Unzipping file : ") + file
+    ).start();
     try {
-      await callAsync(`unzip ${file} -d ${destination}`);
+      await callAsync(`unzip -o ${file} -d ${destination}`);
+
+      spinner.succeed(
+        chalk.hex(COLORS.success)(`Unziped file : ${file} success !`)
+      );
       return true;
     } catch (error) {
-      console.error(error);
+      spinner.fail(chalk.hex(COLORS.error)("Unzip file error ") + ` ${error}`);
       return false;
     }
   }

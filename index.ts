@@ -4,15 +4,17 @@ import { TermRepositoryImpl } from "@impl/TermRepositoryImpl";
 import googlePlay from "google-play-scraper";
 import { APKPureRepoImpl } from "@impl/APKPureRepoImpl";
 import { PlayStoreImpl } from "@impl/PlaystoreImpl";
-import chalk from "chalk";
-import { COLORS } from "config/colors";
 import { Repack } from "@usecase/pentest/Repack";
 import { ADBRepositoryImpl } from "@impl/ADBRepositoryImpl";
 import { SignerImpl } from "@impl/SignerImpl";
+import { removeTextBetweenDashes } from "@utils/RemoveDash";
+import { CONFIG } from "config/config";
 // Enable discord bot
-import "src/app/discord/bot";
+// import "src/app/discord/bot";
 import { RaccoonCommand } from "@constant/RaccoonCommand";
 import { RaccoonRepositoryImpl } from "@impl/RaccoonRepositoryImpl";
+import { APKIDImpl } from "@impl/APKIDImpl";
+
 const {
   packageId,
   keyword,
@@ -31,6 +33,7 @@ const apktoolRepository = new APKToolImpl();
 const signRepo = new SignerImpl();
 const playStoreRepo = new PlayStoreImpl();
 const raccoonRepo = new RaccoonRepositoryImpl();
+const apkidRepo = new APKIDImpl();
 process.setMaxListeners(30);
 const repack = new Repack(adbRepo, apktoolRepository, signRepo);
 
@@ -45,15 +48,21 @@ const searchPackage = async () => {
       // const path = await APKPureRepo.downloadAPK(appItem.appId, appItem.title);
       if (path != undefined) {
         const file = await termRepo.listAPK(path);
-        const regex = /-[^.]+\./;
-        file.split("\n").map((apk) => apk.replace(regex, "."));
+        const fileFormat = file.split("\n").filter((apk) => apk !== "");
+        let targetDir = CONFIG.dir + `${app.appId}/`;
+        let sourceDir = CONFIG.dir + `${app.appId}/source`;
+        let armDir = CONFIG.dir + `${app.appId}/config_arm`;
+        await apktoolRepository.decompileNoRes(
+          targetDir + fileFormat[0],
+          sourceDir
+        );
+        const shield = await apkidRepo.scanDepthFive(targetDir + fileFormat[1]);
+        if (shield != "") {
+          console.log("Shield : " + shield);
+        }
+        await termRepo.unzipFile(targetDir + fileFormat[1], armDir);
+        await termRepo.search("api.openai.com", sourceDir);
       }
-      // if (file.split(".").pop()?.replace(/\s/g, "") === "apk") {
-      //   let fileFormat = file.replace(/ /g, "\\ ");
-      //   fileFormat = fileFormat.replace("\n", "");
-      //   await apktoolRepository.decompileNoRes(fileFormat, outDir);
-      //   await termRepo.search("api.openai.com", outDir);
-      // }
     }
   } else if (keyword != undefined) {
     const appInfo = await playStoreRepo.searchPackage(keyword);
@@ -62,14 +71,25 @@ const searchPackage = async () => {
     });
   } else if (packageId != undefined && download) {
     const appItem = await playStoreRepo.searchPackageInfo(packageId);
-    const path = await APKPureRepo.downloadAPK(appItem.appId, appItem.title);
-    const file = await termRepo.listFile(path);
-    let outDir = `apks/${appItem.appId}/source`;
-    if (file.split(".").pop()?.replace(/\s/g, "") === "apk") {
-      let fileFormat = file.replace(/ /g, "\\ ");
-      fileFormat = fileFormat.replace("\n", "");
-      await apktoolRepository.decompileNoRes(fileFormat, outDir);
-      await termRepo.search("api.openai.com", outDir);
+    const path = await raccoonRepo.execute(appItem.appId);
+    // Download with APK Pure
+    // const path = await APKPureRepo.downloadAPK(appItem.appId, appItem.title);
+    if (path != undefined) {
+      const file = await termRepo.listAPK(path);
+      const fileFormat = file.split("\n").filter((apk) => apk !== "");
+      let targetDir = CONFIG.dir + `${appItem.appId}/`;
+      let sourceDir = CONFIG.dir + `${appItem.appId}/source`;
+      let armDir = CONFIG.dir + `${appItem.appId}/config_arm`;
+      await apktoolRepository.decompileNoRes(
+        targetDir + fileFormat[0],
+        sourceDir
+      );
+      await termRepo.unzipFile(targetDir + fileFormat[1], armDir);
+
+      const shield = await apkidRepo.scanDepthFive(targetDir + fileFormat[1]);
+      if (shield != "") {
+        console.log("Shield : " + shield);
+      }
     }
   } else if (categories) {
     console.log(Object.values(googlePlay.category));
