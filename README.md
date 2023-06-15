@@ -15,7 +15,7 @@
     - Application can be re signed by another key
     - Application can be leak sensitive string
     - Check application can be resign by another key.
-    - Check protection of Application : Obfuscate, Shield (Promon, Progard…) (use APKID)
+    - Check protection of Application : Obfuscate, Shield (Promon, Proguard…) (use APKID)
     - Application can be bypass SSL-Pinning (WIP)
     - Application risks when run on un-protected environment(WIP)
 - Send message to discord server in case version app change
