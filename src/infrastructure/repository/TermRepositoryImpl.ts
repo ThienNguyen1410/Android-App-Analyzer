@@ -22,7 +22,7 @@ export class TermRepositoryImpl implements ITerm {
     try {
       const [output, _] = await callAsync(`ls ${path}`);
       spinner.succeed(
-        chalk.hex(COLORS.success)(`Listed file in path : ${path} !`)
+        chalk.hex(COLORS.success)(`Listed file in path : ${output} !`)
       );
       return output;
     } catch (err) {
@@ -63,7 +63,7 @@ export class TermRepositoryImpl implements ITerm {
     ).start();
 
     try {
-      const [output, _] = await callAsync(`grep -r -o ${key} ${dir}`);
+      const [output, _] = await callAsync(`grep -r -o -l ${key} ${dir}`);
       spinner.succeed(
         chalk.hex(COLORS.success)("Key") + ` ${key} exsited in ${dir}!`
       );
@@ -71,6 +71,26 @@ export class TermRepositoryImpl implements ITerm {
     } catch (error) {
       spinner.fail(
         chalk.hex(COLORS.success)("Key") + ` ${key} not exist in folder ${dir}`
+      );
+      return undefined;
+    }
+  }
+  async checkVersionRN(filePath: string): Promise<string | undefined> {
+    let spinner = ora(
+      chalk.hex(COLORS.running)("Checking version :") + " " + filePath
+    ).start();
+
+    try {
+      const [output, _] = await callAsync(`file ${filePath}`);
+      spinner.succeed(
+        chalk.hex(COLORS.success)("Checked Version ") +
+          ` ${filePath} is ${output}!`
+      );
+      return output;
+    } catch (error) {
+      spinner.fail(
+        chalk.hex(COLORS.success)("Check version failed ") +
+          ` ${filePath} with error ${error}`
       );
       return undefined;
     }

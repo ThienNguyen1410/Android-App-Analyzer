@@ -7,13 +7,11 @@ import { PlayStoreImpl } from "@impl/PlaystoreImpl";
 import { Repack } from "@usecase/pentest/Repack";
 import { ADBRepositoryImpl } from "@impl/ADBRepositoryImpl";
 import { SignerImpl } from "@impl/SignerImpl";
-import { removeTextBetweenDashes } from "@utils/RemoveDash";
-import { CONFIG } from "config/config";
 // Enable discord bot
-// import "src/app/discord/bot";
-import { RaccoonCommand } from "@constant/RaccoonCommand";
+import "src/app/discord/bot";
 import { RaccoonRepositoryImpl } from "@impl/RaccoonRepositoryImpl";
 import { APKIDImpl } from "@impl/APKIDImpl";
+import { GetAPK } from "@app/usecases/pentest/GetApks";
 
 const {
   packageId,
@@ -26,14 +24,22 @@ const {
 } = ArgsParser;
 
 const APKPureRepo = new APKPureRepoImpl();
-const apkTool = new APKToolImpl();
 const adbRepo = new ADBRepositoryImpl();
-const termRepo = new TermRepositoryImpl();
 const apktoolRepository = new APKToolImpl();
 const signRepo = new SignerImpl();
+
 const playStoreRepo = new PlayStoreImpl();
 const raccoonRepo = new RaccoonRepositoryImpl();
+const termRepo = new TermRepositoryImpl();
+const apkTool = new APKToolImpl();
 const apkidRepo = new APKIDImpl();
+const GetAPKFromStore = new GetAPK(
+  playStoreRepo,
+  raccoonRepo,
+  termRepo,
+  apkTool,
+  apkidRepo
+);
 process.setMaxListeners(30);
 const repack = new Repack(adbRepo, apktoolRepository, signRepo);
 
@@ -42,27 +48,8 @@ const searchPackage = async () => {
     // Async await , use for download, decompile and search 1 time each app, slow but lightweight;
     const apps = await playStoreRepo.searchPackage(keyword);
     for (const app of apps) {
-      const appItem = await playStoreRepo.searchPackageInfo(app.appId);
-      const path = await raccoonRepo.execute(appItem.appId);
-      // Download with APK Pure
-      // const path = await APKPureRepo.downloadAPK(appItem.appId, appItem.title);
-      if (path != undefined) {
-        const file = await termRepo.listAPK(path);
-        const fileFormat = file.split("\n").filter((apk) => apk !== "");
-        let targetDir = CONFIG.dir + `${app.appId}/`;
-        let sourceDir = CONFIG.dir + `${app.appId}/source`;
-        let armDir = CONFIG.dir + `${app.appId}/config_arm`;
-        await apktoolRepository.decompileNoRes(
-          targetDir + fileFormat[0],
-          sourceDir
-        );
-        const shield = await apkidRepo.scanDepthFive(targetDir + fileFormat[1]);
-        if (shield != "") {
-          console.log("Shield : " + shield);
-        }
-        await termRepo.unzipFile(targetDir + fileFormat[1], armDir);
-        await termRepo.search("api.openai.com", sourceDir);
-      }
+      const appInfo = await GetAPKFromStore.downloadAPK(app.appId);
+      console.log("APPINFO : ", appInfo);
     }
   } else if (keyword != undefined) {
     const appInfo = await playStoreRepo.searchPackage(keyword);
@@ -70,27 +57,8 @@ const searchPackage = async () => {
       console.log(app.appId);
     });
   } else if (packageId != undefined && download) {
-    const appItem = await playStoreRepo.searchPackageInfo(packageId);
-    const path = await raccoonRepo.execute(appItem.appId);
-    // Download with APK Pure
-    // const path = await APKPureRepo.downloadAPK(appItem.appId, appItem.title);
-    if (path != undefined) {
-      const file = await termRepo.listAPK(path);
-      const fileFormat = file.split("\n").filter((apk) => apk !== "");
-      let targetDir = CONFIG.dir + `${appItem.appId}/`;
-      let sourceDir = CONFIG.dir + `${appItem.appId}/source`;
-      let armDir = CONFIG.dir + `${appItem.appId}/config_arm`;
-      await apktoolRepository.decompileNoRes(
-        targetDir + fileFormat[0],
-        sourceDir
-      );
-      await termRepo.unzipFile(targetDir + fileFormat[1], armDir);
-
-      const shield = await apkidRepo.scanDepthFive(targetDir + fileFormat[1]);
-      if (shield != "") {
-        console.log("Shield : " + shield);
-      }
-    }
+    const appInfo = await GetAPKFromStore.downloadAPK(packageId);
+    console.log("App Info : ", appInfo);
   } else if (categories) {
     console.log(Object.values(googlePlay.category));
   } else if (collections) {
@@ -100,7 +68,7 @@ const searchPackage = async () => {
   } else if (category != undefined && download) {
     const apps = await playStoreRepo.listAppInTopFree(category);
     for (let i = 0; i < apps.length; i++) {
-      await APKPureRepo.downloadAPK(apps[i].appId, apps[i].title);
+      await GetAPKFromStore.downloadAPK(apps[i].appId);
     }
   } else if (packageId != undefined && resign) {
     try {

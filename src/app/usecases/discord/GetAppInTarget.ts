@@ -1,9 +1,15 @@
 import { AppInfo } from "@entities/AppInfo";
 import { TargetJson } from "@entities/TargetJson";
+import { APKIDImpl } from "@impl/APKIDImpl";
+import { APKToolImpl } from "@impl/APKToolImpl";
 import { DiscordRepositoryImpl } from "@impl/DiscordRepositoryImpl";
+import { PlayStoreImpl } from "@impl/PlaystoreImpl";
+import { RaccoonRepositoryImpl } from "@impl/RaccoonRepositoryImpl";
+import { TermRepositoryImpl } from "@impl/TermRepositoryImpl";
 import { PlayStoreRepository } from "@repositories/PlayStoreRepository";
 import { parseJson, writeJson } from "@utils/ParseJson";
 import { CONFIG } from "config/config";
+import { GetAPK } from "../pentest/GetApks";
 
 export class GetAppInTarget {
   playStoreRepo: PlayStoreRepository;
@@ -24,21 +30,25 @@ export class GetAppInTarget {
   // Return updated package list;
   async execute(): Promise<AppInfo[]> {
     const discordRepository = new DiscordRepositoryImpl();
+    const playStoreRepo = new PlayStoreImpl();
+    const raccoonRepo = new RaccoonRepositoryImpl();
+    const termRepo = new TermRepositoryImpl();
+    const apkTool = new APKToolImpl();
+    const apkidRepo = new APKIDImpl();
+    const GetAPKFromStore = new GetAPK(
+      playStoreRepo,
+      raccoonRepo,
+      termRepo,
+      apkTool,
+      apkidRepo
+    );
     let updatedAppInfos: AppInfo[] = [];
     let targetJson = parseJson(CONFIG.targetPath) as TargetJson;
     for (let app of targetJson.appInfo.packages) {
       try {
         for (let [key, value] of Object.entries(app)) {
           const appItem = await this.playStoreRepo.searchPackageInfo(key);
-          const appInfo: AppInfo = {
-            title: appItem.title,
-            appId: appItem.appId,
-            recentChanges: appItem.recentChanges,
-            version: appItem.version,
-            androidVersion: appItem.androidVersion,
-            developer: appItem.developer,
-          };
-
+          const appInfo = await GetAPKFromStore.downloadAPK(appItem.appId);
           const packageEmpty =
             typeof value === "object" &&
             Object.keys(value as Object).length === 0;
@@ -53,7 +63,8 @@ export class GetAppInTarget {
             console.log("Previous Version ", appInfo.version);
             app[key] = appInfo;
             updatedAppInfos.push(appInfo);
-            await discordRepository.sendMessageToServer(appInfo);
+            console.log("APP INFOO : ", appInfo);
+            // await discordRepository.sendMessageToServer(appInfo);
           }
         }
       } catch (error) {
