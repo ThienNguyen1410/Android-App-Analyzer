@@ -8,7 +8,7 @@ import { Repack } from "@usecase/pentest/Repack";
 import { ADBRepositoryImpl } from "@impl/ADBRepositoryImpl";
 import { SignerImpl } from "@impl/SignerImpl";
 // Enable discord bot
-import "src/app/discord/bot";
+// import "src/app/discord/bot";
 import { RaccoonRepositoryImpl } from "@impl/RaccoonRepositoryImpl";
 import { APKIDImpl } from "@impl/APKIDImpl";
 import { GetAPK } from "@app/usecases/pentest/GetApks";
