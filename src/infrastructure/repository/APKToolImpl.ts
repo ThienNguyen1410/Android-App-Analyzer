@@ -11,14 +11,15 @@ export class APKToolImpl implements IAPKTools {
     ).start();
     try {
       const [path, _] = await callAsync(
-        `apktool d --no-res ${apkPath} -o ${outDir}`
+        `apktool d -f --no-res ${apkPath} -o ${outDir}`
       );
       spinner.succeed(
         chalk.hex(COLORS.success)("Decompiled") + ` in folder ${outDir}`
       );
       return path;
     } catch (error) {
-      throw spinner.fail(`Error when decompile in ${apkPath}`);
+      spinner.fail(`Error when decompile ${error}`);
+      return "";
     }
   }
 

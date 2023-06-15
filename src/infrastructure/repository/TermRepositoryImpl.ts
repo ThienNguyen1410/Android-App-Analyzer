@@ -6,19 +6,43 @@ import ora from "ora";
 
 export class TermRepositoryImpl implements ITerm {
   async listFile(path: string): Promise<string> {
+    let spinner = ora({ text: "Start list file" }).start();
     try {
       const [output, _] = await callAsync(`find ${path} -type f`);
+      spinner.succeed(chalk.hex(COLORS.success)(`Listed file : ${output} `));
       return output;
     } catch (err) {
-      throw new Error(`Eror when list file at path ${path}`);
+      spinner.fail(chalk.hex(COLORS.error)("File not exist") + ` ${path}`);
+      return "";
+    }
+  }
+
+  async listAPK(path: string): Promise<string> {
+    let spinner = ora({ text: "Start listing apks : " }).start();
+    try {
+      const [output, _] = await callAsync(`ls ${path}`);
+      spinner.succeed(
+        chalk.hex(COLORS.success)(`Listed file in path : ${output} !`)
+      );
+      return output;
+    } catch (err) {
+      spinner.fail(chalk.hex(COLORS.error)("File not exist") + ` ${path}`);
+      return "";
     }
   }
   async unzipFile(file: string, destination: string): Promise<boolean> {
+    let spinner = ora(
+      chalk.hex(COLORS.success)("Unzipping file : ") + file
+    ).start();
     try {
-      await callAsync(`unzip ${file} -d ${destination}`);
+      await callAsync(`unzip -o ${file} -d ${destination}`);
+
+      spinner.succeed(
+        chalk.hex(COLORS.success)(`Unziped file : ${file} success !`)
+      );
       return true;
     } catch (error) {
-      console.error(error);
+      spinner.fail(chalk.hex(COLORS.error)("Unzip file error ") + ` ${error}`);
       return false;
     }
   }
@@ -39,7 +63,7 @@ export class TermRepositoryImpl implements ITerm {
     ).start();
 
     try {
-      const [output, _] = await callAsync(`grep -r -o ${key} ${dir}`);
+      const [output, _] = await callAsync(`grep -r -o -l ${key} ${dir}`);
       spinner.succeed(
         chalk.hex(COLORS.success)("Key") + ` ${key} exsited in ${dir}!`
       );
@@ -47,6 +71,26 @@ export class TermRepositoryImpl implements ITerm {
     } catch (error) {
       spinner.fail(
         chalk.hex(COLORS.success)("Key") + ` ${key} not exist in folder ${dir}`
+      );
+      return undefined;
+    }
+  }
+  async checkVersionRN(filePath: string): Promise<string | undefined> {
+    let spinner = ora(
+      chalk.hex(COLORS.running)("Checking version :") + " " + filePath
+    ).start();
+
+    try {
+      const [output, _] = await callAsync(`file ${filePath}`);
+      spinner.succeed(
+        chalk.hex(COLORS.success)("Checked Version ") +
+          ` ${filePath} is ${output}!`
+      );
+      return output;
+    } catch (error) {
+      spinner.fail(
+        chalk.hex(COLORS.success)("Check version failed ") +
+          ` ${filePath} with error ${error}`
       );
       return undefined;
     }

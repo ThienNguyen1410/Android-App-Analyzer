@@ -7,9 +7,6 @@ import { discordCommand } from "./deploy-commands";
 import { GetAppInTarget } from "@app/usecases/discord/GetAppInTarget";
 import { PlayStoreImpl } from "@impl/PlaystoreImpl";
 import { CronJob } from "cron";
-import axios from "axios";
-import FormData from "form-data";
-import { DEV_NAME } from "@constant/DevName";
 
 const CHANNEL_ID: string = DISCORD.CHANEL_ID;
 export const client = new Client({
@@ -26,44 +23,16 @@ client.once("ready", () => {
     console.error(`Channel with ID '${CHANNEL_ID}' not found.`);
     return;
   }
-  let job = new CronJob(
-    "* * * * *",
-    async function () {
-      const URL1 = "";
-      const URL2 = "";
-      const appInfos = await getAppInTarget.execute();
-      const isAppsUpdate = appInfos.length != 0;
-      if (isAppsUpdate) {
-        for (const app of appInfos) {
-          var data = new FormData();
-          data.append("username", app.title);
-          data.append("content", JSON.stringify(app, null, 2));
-
-          var config = {
-            method: "post",
-            timeout: 60000,
-            url:
-              app.developer === DEV_NAME.VNG ||
-              app.developer === DEV_NAME.ZALOPAY
-                ? URL2
-                : URL1,
-            data: data,
-          };
-          try {
-            const response = await axios(config);
-            console.log(JSON.stringify(response.status, null, 2));
-            console.log(JSON.stringify(response.data, null, 2));
-          } catch (error) {
-            console.log(error);
-          }
-        }
-      }
-    },
-    null,
-    true,
-    "Asia/Ho_Chi_Minh"
-  );
-  job.start();
+  // let job = new CronJob(
+  //   "* * * * *",
+  //   async function () {
+  getAppInTarget.execute().catch((error) => console.log(error));
+  // },
+  // null,
+  // true,
+  // "Asia/Ho_Chi_Minh"
+  // );
+  // job.start();
 });
 
 client.on("interactionCreate", async (interaction) => {
