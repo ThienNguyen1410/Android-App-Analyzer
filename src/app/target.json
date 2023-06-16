@@ -5,7 +5,9 @@
         "newway.open.chatgpt.ai.chat.bot.free": {
           "title": "Chatbot AI - Ask AI anything",
           "appId": "newway.open.chatgpt.ai.chat.bot.free",
-          "version": "1.6.8",
+          "framework": "Native",
+          "shield": "",
+          "version": "1.6.9",
           "androidVersion": "5.0",
           "developer": "Newway Apps"
         }
@@ -24,8 +26,11 @@
         "com.codeway.chatapp": {
           "title": "Ask AI - Chat with Chatbot",
           "appId": "com.codeway.chatapp",
+          "framework": "Native",
+          "gameEngine": "Cocos",
+          "shield": "",
           "recentChanges": "We fixed some pesky bugs and improved the overall performance of the app.<br><br>Greetings from ASK AI Team",
-          "version": "1.0.991",
+          "version": "1.1.0",
           "androidVersion": "8.0",
           "developer": "Codeway Dijital"
         }
@@ -34,8 +39,10 @@
         "com.Beauchamp.Messenger.external": {
           "title": "Chai - Chat with AI Friends",
           "appId": "com.Beauchamp.Messenger.external",
+          "framework": "React Native",
+          "shield": "",
           "recentChanges": "Bug fixes &amp; improvements.",
-          "version": "0.4.71",
+          "version": "0.4.75",
           "androidVersion": "6.0",
           "developer": "Chai Research Corp."
         }
@@ -83,7 +90,11 @@
         "ai.replika.app": {
           "title": "Replika: My AI Friend",
           "appId": "ai.replika.app",
-          "version": "11.2.2",
+          "framework": "React Native",
+          "gameEngine": "Unity",
+          "shield": "",
+          "recentChanges": "Thank you for downloading Replika!    This release includes stability improvements, bug fixes, and content updates.    Please leave a review and rate the app if you enjoy it.",
+          "version": "11.3.1",
           "androidVersion": "8.0",
           "developer": "Luka, Inc"
         }
@@ -109,10 +120,12 @@
       },
       {
         "com.facebook.videodownload.videodownloaderforfacebook": {
-          "title": "AI ChatBot AI Friend Character",
+          "title": "AI ChatBot AI Friend Assistant",
           "appId": "com.facebook.videodownload.videodownloaderforfacebook",
+          "framework": "React Native",
+          "shield": "",
           "recentChanges": "﻿Now, let&#39;s introduce the new features of AI Chat<br>- Improve performance and optimize experience<br>Enjoy interacting with highly intelligent AI rbots!",
-          "version": "3.0.2.0",
+          "version": "3.0.3.1",
           "androidVersion": "6.0",
           "developer": "VIDEOSHOW Video Editor & Maker & AI Chat Generator"
         }
@@ -121,7 +134,11 @@
         "ai.chat.gpt.bot": {
           "title": "ChatOn - AI Chat Bot Assistant",
           "appId": "ai.chat.gpt.bot",
-          "version": "1.12.149-146",
+          "framework": "React Native",
+          "gameEngine": "Cocos",
+          "shield": "",
+          "recentChanges": "Hello there! We have some updates for you:<br>· New languages—ChatOn now speaks Chinese, Japanese, Korean, and Hindi<br>· Online World category—get help managing your social media profile<br>· Voice-to-text option—speak instead of typing<br>· Minor bug fixes and UI improvements<br><br>Have comments or suggestions? Don’t hesitate to reach out!<br>Thank you for choosing ChatOn!",
+          "version": "1.13.147-154",
           "androidVersion": "8.0",
           "developer": "AIBY Inc."
         }
@@ -159,8 +176,9 @@
         "com.ai.chat.bot.aichat": {
           "title": "Chat AI - AI Chatbot Assistant",
           "appId": "com.ai.chat.bot.aichat",
+          "framework": "React Native",
           "recentChanges": "Fixed some crash.",
-          "version": "1.4.5",
+          "version": "1.5.0",
           "androidVersion": "8.0",
           "developer": "SEA MOBILE LTD"
         }
@@ -207,8 +225,10 @@
         "com.paragraphai.paragraphai": {
           "title": "ParagraphAI: GPT Writer & Chat",
           "appId": "com.paragraphai.paragraphai",
-          "recentChanges": "UI Updates",
-          "version": "1.74",
+          "framework": "Native",
+          "shield": "",
+          "recentChanges": "Bug Fixes<br>UI Updates",
+          "version": "1.75",
           "androidVersion": "5.0",
           "developer": "ParagraphAI Inc."
         }
@@ -237,8 +257,9 @@
         "ai.chat.gpt.app": {
           "title": "AI Chat - AI Chatbot Assistant",
           "appId": "ai.chat.gpt.app",
-          "recentChanges": "AI Chat with ChatGPT v1.2.1",
-          "version": "1.2.1",
+          "framework": "Native",
+          "recentChanges": "AI Chat with ChatGPT v1.2.2",
+          "version": "1.2.3",
           "androidVersion": "6.0",
           "developer": "Sage AI"
         }
@@ -267,7 +288,9 @@
         "io.forestsoft.secretarychat": {
           "title": "AI Chat Assistant (By GPT)",
           "appId": "io.forestsoft.secretarychat",
-          "version": "1.2.41",
+          "framework": "Native",
+          "shield": "",
+          "version": "1.3.2",
           "androidVersion": "7.0",
           "developer": "gaga.chat"
         }
@@ -276,7 +299,10 @@
         "com.womboai.wombodream": {
           "title": "WOMBO Dream - AI Art Generator",
           "appId": "com.womboai.wombodream",
-          "version": "3.1.0",
+          "framework": "React Native",
+          "shield": "",
+          "recentChanges": "Hi there! Here’s another fresh update from the WOMBO Dream team!<br><br>A big new release:<br>- [NEW] Say hello to the brand-new WOMBO coins!<br><br>[BUG FIXES]<br>- Other minor bug fixes and performance improvements.<br><br>If you’re enjoying the app, please rate us or leave a review!",
+          "version": "3.1.1",
           "androidVersion": "7.1",
           "developer": "Wombo Studios Inc"
         }
@@ -359,7 +385,10 @@
         "com.withfeelingai.test": {
           "title": "Paradot: Virtual Being to Chat",
           "appId": "com.withfeelingai.test",
-          "version": "1.3.8",
+          "framework": "Native",
+          "shield": "",
+          "recentChanges": "In this update: user experience promoted and bug fixed",
+          "version": "1.3.9",
           "androidVersion": "7.0",
           "developer": "WITHFEELING.AI"
         }
@@ -456,8 +485,9 @@
         "vn.vng.uprace": {
           "title": "UpRace",
           "appId": "vn.vng.uprace",
-          "recentChanges": "- Improve steps feature<br>- Connect 3rd activity<br>- Improve ranking<br>- Fixbugs",
-          "version": "3.4.0",
+          "framework": "React Native",
+          "recentChanges": "- Implement 3rd devices (Coros)<br>- Implement reaction/photo comment<br>- Improve UI/UX<br>- Fixbugs",
+          "version": "3.4.2",
           "androidVersion": "5.1",
           "developer": "VNG Corporation - Công ty Cổ phần VNG"
         }
@@ -526,8 +556,11 @@
         "com.starmakerinteractive.starmaker": {
           "title": "StarMaker: Sing Karaoke Songs",
           "appId": "com.starmakerinteractive.starmaker",
+          "framework": "React Native",
+          "gameEngine": "Unity",
+          "shield": "[*] /Users/Thien/Android-App-Analyzer/apks/com.starmakerinteractive.starmaker/config.arm64_v8a-85837601.apk!lib/arm64-v8a/libturingpri_mini.so\n |-> obfuscator : Obfuscator-LLVM version unknown\n",
           "recentChanges": "1. Added a demonstration of party room invitation. <br>2. Family moments upgraded to help family members interact better. <br>3. New functions adding to virtual looks, including giving likes, sending gifts and camera. <br>4. Daily task page upgrade.",
-          "version": "8.37.2",
+          "version": "8.37.6",
           "androidVersion": "5.0",
           "developer": "STAR SHINE ENTERTAINMENT PTE. LTD."
         }

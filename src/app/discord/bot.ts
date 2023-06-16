@@ -23,16 +23,16 @@ client.once("ready", () => {
     console.error(`Channel with ID '${CHANNEL_ID}' not found.`);
     return;
   }
-  // let job = new CronJob(
-  //   "* * * * *",
-  //   async function () {
-  getAppInTarget.execute().catch((error) => console.log(error));
-  // },
-  // null,
-  // true,
-  // "Asia/Ho_Chi_Minh"
-  // );
-  // job.start();
+  let job = new CronJob(
+    "0 8 * * *",
+    async function () {
+      await getAppInTarget.execute();
+    },
+    null,
+    true,
+    "Asia/Ho_Chi_Minh"
+  );
+  job.start();
 });
 
 client.on("interactionCreate", async (interaction) => {

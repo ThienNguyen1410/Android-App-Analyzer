@@ -48,22 +48,25 @@ export class GetAppInTarget {
       try {
         for (let [key, value] of Object.entries(app)) {
           const appItem = await this.playStoreRepo.searchPackageInfo(key);
-          const appInfo = await GetAPKFromStore.downloadAPK(appItem.appId);
           const packageEmpty =
             typeof value === "object" &&
             Object.keys(value as Object).length === 0;
           if (packageEmpty) {
+            const appInfo = await GetAPKFromStore.downloadAPK(appItem.appId);
             app[key] = appInfo;
             updatedAppInfos.push(appInfo);
+            writeJson(CONFIG.targetPath, targetJson);
             continue;
           }
-          const isVersionUpdate = app[key].version != appInfo.version;
+          const isVersionUpdate = app[key].version !== appItem.version;
           if (isVersionUpdate) {
-            console.log("New Version ", app[key].version);
-            console.log("Previous Version ", appInfo.version);
+            console.log("New version found !");
+            console.log("Old Version : ", app[key].version);
+            console.log("New Version : ", appItem.version);
+            const appInfo = await GetAPKFromStore.downloadAPK(appItem.appId);
             app[key] = appInfo;
             updatedAppInfos.push(appInfo);
-            console.log("APP INFOO : ", appInfo);
+            writeJson(CONFIG.targetPath, targetJson);
             // await discordRepository.sendMessageToServer(appInfo);
           }
         }
@@ -71,7 +74,6 @@ export class GetAppInTarget {
         console.log("Get app in target error ", error);
       }
     }
-    writeJson(CONFIG.targetPath, targetJson);
     return updatedAppInfos;
   }
 }

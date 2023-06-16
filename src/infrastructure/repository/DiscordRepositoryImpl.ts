@@ -1,9 +1,9 @@
 import { DEV_NAME } from "@constant/DevName";
-import { SERVER } from "@constant/Server";
 import { AppInfo } from "@entities/AppInfo";
 import axios from "axios";
 import chalk from "chalk";
 import { COLORS } from "config/colors";
+import { SERVER } from "config/server";
 import FormData from "form-data";
 import ora from "ora";
 
@@ -21,8 +21,8 @@ export class DiscordRepositoryImpl implements DiscordRepositoryImpl {
       timeout: 60000,
       url:
         app.developer === DEV_NAME.VNG || app.developer === DEV_NAME.ZALOPAY
-          ? SERVER.URL1
-          : SERVER.URL2,
+          ? SERVER.VNG
+          : SERVER.RSS,
       data: data,
     };
     try {
