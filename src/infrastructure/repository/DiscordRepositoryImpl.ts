@@ -1,4 +1,5 @@
 import { DEV_NAME } from "@constant/DevName";
+import { DISCORD } from "config/discord";
 import { SERVER } from "@constant/Server";
 import { AppInfo } from "@entities/AppInfo";
 import axios from "axios";
@@ -21,8 +22,8 @@ export class DiscordRepositoryImpl implements DiscordRepositoryImpl {
       timeout: 60000,
       url:
         app.developer === DEV_NAME.VNG || app.developer === DEV_NAME.ZALOPAY
-          ? SERVER.URL1
-          : SERVER.URL2,
+          ? DISCORD.URL_VNG
+          : DISCORD.URL_RSS,
       data: data,
     };
     try {
