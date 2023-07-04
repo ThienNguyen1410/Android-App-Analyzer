@@ -63,8 +63,7 @@ export class GetAppInTarget {
             console.log("Previous Version ", appInfo.version);
             app[key] = appInfo;
             updatedAppInfos.push(appInfo);
-            console.log("APP INFOO : ", appInfo);
-            // await discordRepository.sendMessageToServer(appInfo);
+            await discordRepository.sendMessageToServer(appInfo);
           }
         }
       } catch (error) {
