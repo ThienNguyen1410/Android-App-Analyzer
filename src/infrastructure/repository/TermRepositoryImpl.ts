@@ -95,4 +95,18 @@ export class TermRepositoryImpl implements ITerm {
       return undefined;
     }
   }
+
+  async removeApks(): Promise<boolean> {
+    let spinner = ora(
+      chalk.hex(COLORS.running)("Removing old apks version...")
+    ).start();
+    try {
+      await callAsync("rm -rf apks/*");
+      spinner.succeed(chalk.hex(COLORS.success)("All old apks removed !"));
+      return true;
+    } catch {
+      spinner.fail(chalk.hex(COLORS.success)("Remove old apks fail !"));
+      return false;
+    }
+  }
 }

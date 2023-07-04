@@ -7,6 +7,7 @@ import { discordCommand } from "./deploy-commands";
 import { GetAppInTarget } from "@app/usecases/discord/GetAppInTarget";
 import { PlayStoreImpl } from "@impl/PlaystoreImpl";
 import { CronJob } from "cron";
+import { TermRepositoryImpl } from "@impl/TermRepositoryImpl";
 
 const CHANNEL_ID: string = DISCORD.CHANEL_ID;
 export const client = new Client({
@@ -16,6 +17,7 @@ export const client = new Client({
 client.once("ready", () => {
   console.log(`Discord bot is ready !`);
   const playStoreRepo = new PlayStoreImpl();
+  const termRepo = new TermRepositoryImpl();
   const getAppInTarget = new GetAppInTarget(playStoreRepo);
   discordCommand();
   const channel = client.channels.cache.get(CHANNEL_ID) as TextChannel;
@@ -23,10 +25,16 @@ client.once("ready", () => {
     console.error(`Channel with ID '${CHANNEL_ID}' not found.`);
     return;
   }
+
   let job = new CronJob(
-    "0 8 * * *",
+    "* * * * *",
     async function () {
-      getAppInTarget.execute().catch((error) => console.log(error));
+      const isRemoveApks = await termRepo.removeApks();
+      if (isRemoveApks) {
+        await getAppInTarget.execute();
+      } else {
+        console.log("Disk full !");
+      }
     },
     null,
     true,
