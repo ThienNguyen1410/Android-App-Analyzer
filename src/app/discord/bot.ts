@@ -3,6 +3,7 @@ import { Client, TextChannel } from "discord.js";
 import * as ping from "@discord/commands/ping";
 import * as search from "@discord/commands/search";
 import * as add from "@app/discord/commands/add";
+import * as addAppStoreID from "@app/discord/commands/addAppStoreId";
 import { discordCommand } from "./deploy-commands";
 import { GetAppInTarget } from "@app/usecases/discord/GetAppInTarget";
 import { PlayStoreImpl } from "@impl/PlaystoreImpl";
@@ -25,22 +26,28 @@ client.once("ready", () => {
     console.error(`Channel with ID '${CHANNEL_ID}' not found.`);
     return;
   }
+  termRepo.removeApks().then((isRemove) => {
+    if (isRemove) {
+      // getAppInTarget.execute().then(console.log).catch(console.log);
+      getAppInTarget.executeIOSTarget().then(console.log).catch(console.log);
+    }
+  });
 
-  let job = new CronJob(
-    "* * * * *",
-    async function () {
-      const isRemoveApks = await termRepo.removeApks();
-      if (isRemoveApks) {
-        await getAppInTarget.execute();
-      } else {
-        console.log("Disk full !");
-      }
-    },
-    null,
-    true,
-    "Asia/Ho_Chi_Minh"
-  );
-  job.start();
+  // let job = new CronJob(
+  //   "* * * * *",
+  //   async function () {
+  //     const isRemoveApks = await termRepo.removeApks();
+  //     if (isRemoveApks) {
+  //       await getAppInTarget.execute();
+  //     } else {
+  //       console.log("Disk full !");
+  //     }
+  //   },
+  //   null,
+  //   true,
+  //   "Asia/Ho_Chi_Minh"
+  // );
+  // job.start();
 });
 
 client.on("interactionCreate", async (interaction) => {
@@ -58,6 +65,9 @@ client.on("interactionCreate", async (interaction) => {
   }
   if (commandName === "add") {
     add.execute(interaction);
+  }
+  if (commandName === "add_ios") {
+    addAppStoreID.execute(interaction);
   }
 });
 

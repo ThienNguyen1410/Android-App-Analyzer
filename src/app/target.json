@@ -5,8 +5,10 @@
         "newway.open.chatgpt.ai.chat.bot.free": {
           "title": "Chatbot AI - Ask AI anything",
           "appId": "newway.open.chatgpt.ai.chat.bot.free",
-          "version": "1.6.8",
-          "androidVersion": "5.0",
+          "framework": "Native",
+          "shield": "",
+          "version": "1.8.9",
+          "androidVersion": "6.0",
           "developer": "Newway Apps"
         }
       },
@@ -24,8 +26,11 @@
         "com.codeway.chatapp": {
           "title": "Ask AI - Chat with Chatbot",
           "appId": "com.codeway.chatapp",
+          "framework": "Native",
+          "gameEngine": "Cocos",
+          "shield": "",
           "recentChanges": "We fixed some pesky bugs and improved the overall performance of the app.<br><br>Greetings from ASK AI Team",
-          "version": "1.0.991",
+          "version": "1.1.1",
           "androidVersion": "8.0",
           "developer": "Codeway Dijital"
         }
@@ -34,8 +39,10 @@
         "com.Beauchamp.Messenger.external": {
           "title": "Chai - Chat with AI Friends",
           "appId": "com.Beauchamp.Messenger.external",
+          "framework": "React Native",
+          "shield": "",
           "recentChanges": "Bug fixes &amp; improvements.",
-          "version": "0.4.71",
+          "version": "0.4.86",
           "androidVersion": "6.0",
           "developer": "Chai Research Corp."
         }
@@ -83,8 +90,12 @@
         "ai.replika.app": {
           "title": "Replika: My AI Friend",
           "appId": "ai.replika.app",
-          "version": "11.2.2",
-          "androidVersion": "8.0",
+          "framework": "React Native",
+          "gameEngine": "Unity",
+          "shield": "",
+          "recentChanges": "Thank you for downloading Replika!    This release includes stability improvements, bug fixes, and content updates.    Please leave a review and rate the app if you enjoy it.",
+          "version": "11.5.0",
+          "androidVersion": "9",
           "developer": "Luka, Inc"
         }
       },
@@ -92,7 +103,10 @@
         "com.ifriend.app": {
           "title": "EVA AI (ex Journey) Chat Bot",
           "appId": "com.ifriend.app",
-          "version": "3.32.0",
+          "framework": "Native",
+          "shield": "",
+          "recentChanges": "Ready for new exciting update? I’m becoming even closer to you. 🤗 Wanna know what it means? You know what to do, see you. *winks*",
+          "version": "3.33.0",
           "androidVersion": "6.0",
           "developer": "Novi Limited"
         }
@@ -101,18 +115,22 @@
         "com.horsemen.ai.chat.gpt": {
           "title": "AI Chat-Chat with chatbot",
           "appId": "com.horsemen.ai.chat.gpt",
+          "framework": "React Native",
+          "shield": "",
           "recentChanges": "fix bug",
-          "version": "1.0.8",
+          "version": "1.0.9",
           "androidVersion": "5.0",
           "developer": "Horsemen AI"
         }
       },
       {
         "com.facebook.videodownload.videodownloaderforfacebook": {
-          "title": "AI ChatBot AI Friend Character",
+          "title": "AI ChatBot AI Friend Assistant",
           "appId": "com.facebook.videodownload.videodownloaderforfacebook",
+          "framework": "React Native",
+          "shield": "",
           "recentChanges": "﻿Now, let&#39;s introduce the new features of AI Chat<br>- Improve performance and optimize experience<br>Enjoy interacting with highly intelligent AI rbots!",
-          "version": "3.0.2.0",
+          "version": "3.0.3.3",
           "androidVersion": "6.0",
           "developer": "VIDEOSHOW Video Editor & Maker & AI Chat Generator"
         }
@@ -121,7 +139,11 @@
         "ai.chat.gpt.bot": {
           "title": "ChatOn - AI Chat Bot Assistant",
           "appId": "ai.chat.gpt.bot",
-          "version": "1.12.149-146",
+          "framework": "React Native",
+          "gameEngine": "Cocos",
+          "shield": "",
+          "recentChanges": "Hello there! We have some updates for you:<br>· You can now save prompts to Favorites to access them anytime<br>· General design improvements<br>Have comments or suggestions? Don’t hesitate to reach out!<br>Thank you for choosing ChatOn!",
+          "version": "1.14.168-172",
           "androidVersion": "8.0",
           "developer": "AIBY Inc."
         }
@@ -139,8 +161,10 @@
         "com.chatbot.ai.aichat.openaibot.chat": {
           "title": "ChatAI: AI Chatbot App",
           "appId": "com.chatbot.ai.aichat.openaibot.chat",
+          "framework": "React Native",
+          "shield": "",
           "recentChanges": "- OpenAI Chat<br>- AI ChatBot<br>- Chat AI<br>- Optimizes app",
-          "version": "6.6",
+          "version": "8.0",
           "androidVersion": "5.0",
           "developer": "iKame Applications - Begamob Apps"
         }
@@ -159,8 +183,9 @@
         "com.ai.chat.bot.aichat": {
           "title": "Chat AI - AI Chatbot Assistant",
           "appId": "com.ai.chat.bot.aichat",
+          "framework": "React Native",
           "recentChanges": "Fixed some crash.",
-          "version": "1.4.5",
+          "version": "1.5.2",
           "androidVersion": "8.0",
           "developer": "SEA MOBILE LTD"
         }
@@ -177,9 +202,11 @@
       },
       {
         "com.peace.AiChat": {
-          "title": "AI Chat by GPT",
+          "title": "AI Chat",
           "appId": "com.peace.AiChat",
-          "version": "3.2.0",
+          "framework": "React Native",
+          "shield": "",
+          "version": "3.2.2",
           "androidVersion": "6.0",
           "developer": "Peace"
         }
@@ -207,8 +234,10 @@
         "com.paragraphai.paragraphai": {
           "title": "ParagraphAI: GPT Writer & Chat",
           "appId": "com.paragraphai.paragraphai",
-          "recentChanges": "UI Updates",
-          "version": "1.74",
+          "framework": "React Native",
+          "shield": "",
+          "recentChanges": "Keyboard Updates",
+          "version": "1.77",
           "androidVersion": "5.0",
           "developer": "ParagraphAI Inc."
         }
@@ -237,8 +266,9 @@
         "ai.chat.gpt.app": {
           "title": "AI Chat - AI Chatbot Assistant",
           "appId": "ai.chat.gpt.app",
-          "recentChanges": "AI Chat with ChatGPT v1.2.1",
-          "version": "1.2.1",
+          "framework": "Native",
+          "recentChanges": "AI Chat with ChatGPT v1.2.2",
+          "version": "1.2.3",
           "androidVersion": "6.0",
           "developer": "Sage AI"
         }
@@ -267,7 +297,9 @@
         "io.forestsoft.secretarychat": {
           "title": "AI Chat Assistant (By GPT)",
           "appId": "io.forestsoft.secretarychat",
-          "version": "1.2.41",
+          "framework": "Native",
+          "shield": "",
+          "version": "1.3.5",
           "androidVersion": "7.0",
           "developer": "gaga.chat"
         }
@@ -276,7 +308,10 @@
         "com.womboai.wombodream": {
           "title": "WOMBO Dream - AI Art Generator",
           "appId": "com.womboai.wombodream",
-          "version": "3.1.0",
+          "framework": "React Native",
+          "shield": "",
+          "recentChanges": "Hi there! Here’s another fresh update from the WOMBO Dream team!<br><br>A big new release:<br>- [NEW] Say hello to the brand-new WOMBO coins!<br><br>[BUG FIXES]<br>- Other minor bug fixes and performance improvements.<br><br>If you’re enjoying the app, please rate us or leave a review!",
+          "version": "3.1.4",
           "androidVersion": "7.1",
           "developer": "Wombo Studios Inc"
         }
@@ -285,7 +320,9 @@
         "com.vyroai.aiart": {
           "title": "Imagine : AI Art Generator",
           "appId": "com.vyroai.aiart",
-          "version": "2.6.7",
+          "framework": "React Native",
+          "shield": "",
+          "version": "2.8.3",
           "androidVersion": "6.0",
           "developer": "Vyro AI"
         }
@@ -312,8 +349,9 @@
         "com.ai.polyverse.mirror": {
           "title": "AI Mirror: AI Art Photo Editor",
           "appId": "com.ai.polyverse.mirror",
-          "recentChanges": "We&#39;ve added tons of new features to our app, including Hi-Res the generated image, a mysterious template, and support for multiple languages. Get ready for an even better experience!",
-          "version": "2.2.8",
+          "framework": "React Native",
+          "shield": "",
+          "version": "2.3.1",
           "androidVersion": "5.0",
           "developer": "POLYVERSE INC."
         }
@@ -331,8 +369,10 @@
         "ai.generated.art.maker.image.picture.photo.generator.painting": {
           "title": "AI ARTA: Art & Photo Generator",
           "appId": "ai.generated.art.maker.image.picture.photo.generator.painting",
-          "recentChanges": "Great news!<br>In this version, we’ve added a quick tutorial about the app’s features to help you create your first masterpiece.<br><br>If you enjoy the app, please rate us or leave your review. ",
-          "version": "2.13.5",
+          "framework": "React Native",
+          "shield": "",
+          "recentChanges": "Great news—new version is out!<br>It brings to you: <br>– Minor bug fixes and UI improvements<br><br>We love getting feedback from you! Please leave your reviews so we can keep making the app even better.",
+          "version": "2.14.6",
           "androidVersion": "10",
           "developer": "AIBY Inc."
         }
@@ -350,7 +390,10 @@
         "com.starryai": {
           "title": "starryai - AI Art Generator",
           "appId": "com.starryai",
-          "version": "1.11.0",
+          "framework": "React Native",
+          "shield": "",
+          "recentChanges": "Bug Fixes &amp; Performance Improvements",
+          "version": "1.12.0",
           "androidVersion": "5.0",
           "developer": "starryai Inc."
         }
@@ -359,7 +402,10 @@
         "com.withfeelingai.test": {
           "title": "Paradot: Virtual Being to Chat",
           "appId": "com.withfeelingai.test",
-          "version": "1.3.8",
+          "framework": "Native",
+          "shield": "",
+          "recentChanges": "Bug fixed",
+          "version": "1.4.6",
           "androidVersion": "7.0",
           "developer": "WITHFEELING.AI"
         }
@@ -368,8 +414,10 @@
         "com.picso.android": {
           "title": "PicSo – Customize Your AI Girl",
           "appId": "com.picso.android",
+          "framework": "Native",
+          "shield": "",
           "recentChanges": "Bug fixes and performance improvements.",
-          "version": "1.14.0",
+          "version": "1.16.0",
           "androidVersion": "5.0",
           "developer": "Meta Insight"
         }
@@ -388,8 +436,11 @@
         "com.vng.playtogether": {
           "title": "Play Together VNG",
           "appId": "com.vng.playtogether",
+          "framework": "Native",
+          "gameEngine": "Unity",
+          "shield": "[*] /Users/Thien/Android-App-Analyzer/apks/com.vng.playtogether/config.arm64_v8a-112995.apk\n |-> anti_vm : possible VM check\n[*] /Users/Thien/Android-App-Analyzer/apks/com.vng.playtogether/config.arm64_v8a-112995.apk!lib/arm64-v8a/libATG_L.so\n |-> anti_vm : possible VM check\n",
           "recentChanges": "Chỉnh sửa lỗi game",
-          "version": "1.60.1",
+          "version": "1.61.1",
           "androidVersion": "6.0",
           "developer": "VNG Corporation - Công ty Cổ phần VNG"
         }
@@ -436,8 +487,9 @@
         "com.wyd.gunpow": {
           "title": "GunPow - Bắn Gà Teen PK",
           "appId": "com.wyd.gunpow",
-          "recentChanges": "1. Tính năng mới: Voice Chat<br>2. Tính năng mới: Nông Trại<br>3.Tính năng mới: Trường Học<br>4.Tính năng mới: Triệu Hồi<br>5.Tính Năng mới: Linh Thạch<br>6.Tính năng mới:Trang bị Skin<br>7.Ưu hóa UI<br>8.Ưu hóa ghép đấu<br>9.Fix bug",
-          "version": "1.9.8",
+          "framework": "Native",
+          "recentChanges": "Ưu hoá trải nghiệm người dùng",
+          "version": "2.0.2",
           "androidVersion": "4.3",
           "developer": "VNG Corporation - Công ty Cổ phần VNG"
         }
@@ -446,8 +498,11 @@
         "vng.game.sky.fantasy.song.vn": {
           "title": "Cloud Song: Vân Thành Chi Ca",
           "appId": "vng.game.sky.fantasy.song.vn",
+          "framework": "Native",
+          "gameEngine": "Unity",
+          "shield": "",
           "recentChanges": "Ưu hóa trải nghiệm người dùng.",
-          "version": "1.3.0",
+          "version": "1.4.2",
           "androidVersion": "4.4",
           "developer": "VNG Corporation - Công ty Cổ phần VNG"
         }
@@ -456,8 +511,9 @@
         "vn.vng.uprace": {
           "title": "UpRace",
           "appId": "vn.vng.uprace",
-          "recentChanges": "- Improve steps feature<br>- Connect 3rd activity<br>- Improve ranking<br>- Fixbugs",
-          "version": "3.4.0",
+          "framework": "React Native",
+          "recentChanges": "- Improve activity feature<br>- Fixbugs",
+          "version": "3.4.4",
           "androidVersion": "5.1",
           "developer": "VNG Corporation - Công ty Cổ phần VNG"
         }
@@ -476,8 +532,11 @@
         "adventure.rpg.anime.game.vng.ys6": {
           "title": "Ys 6 Mobile VNG",
           "appId": "adventure.rpg.anime.game.vng.ys6",
+          "framework": "React Native",
+          "gameEngine": "Unity",
+          "shield": "",
           "recentChanges": "User experience optimization",
-          "version": "1.2.5",
+          "version": "1.2.6",
           "androidVersion": "4.3",
           "developer": "VNG Corporation - Công ty Cổ phần VNG"
         }
@@ -486,8 +545,10 @@
         "vn.com.vng.zalopay": {
           "title": "ZaloPay - Chạm là Thanh toán",
           "appId": "vn.com.vng.zalopay",
-          "recentChanges": "Bản cập nhật 8.17.0 có gì mới?<br><br>Nâng cấp và cải thiện hiệu năng<br>ZaloPay tiếp tục được nâng cấp và hoàn thiện các tính năng để mang lại trải nghiệm tốt nhất.",
-          "version": "8.17.0",
+          "framework": "React Native",
+          "shield": "",
+          "recentChanges": "Bản cập nhật 8.19.0 có gì mới?<br><br>- Nâng cấp và cải thiện hiệu năng<br>ZaloPay tiếp tục được nâng cấp và hoàn thiện các tính năng để mang lại trải nghiệm tốt nhất.",
+          "version": "8.19.0",
           "androidVersion": "8.0",
           "developer": "ZION JOINT STOCK COMPANY"
         }
@@ -516,8 +577,9 @@
         "com.ai.polyverse.mirror": {
           "title": "AI Mirror: AI Art Photo Editor",
           "appId": "com.ai.polyverse.mirror",
-          "recentChanges": "We&#39;ve added tons of new features to our app, including Hi-Res the generated image, a mysterious template, and support for multiple languages. Get ready for an even better experience!",
-          "version": "2.2.8",
+          "framework": "React Native",
+          "shield": "",
+          "version": "2.3.1",
           "androidVersion": "5.0",
           "developer": "POLYVERSE INC."
         }
@@ -526,8 +588,11 @@
         "com.starmakerinteractive.starmaker": {
           "title": "StarMaker: Sing Karaoke Songs",
           "appId": "com.starmakerinteractive.starmaker",
-          "recentChanges": "1. Added a demonstration of party room invitation. <br>2. Family moments upgraded to help family members interact better. <br>3. New functions adding to virtual looks, including giving likes, sending gifts and camera. <br>4. Daily task page upgrade.",
-          "version": "8.37.2",
+          "framework": "React Native",
+          "gameEngine": "Unity",
+          "shield": "[*] /Users/Thien/Android-App-Analyzer/apks/com.starmakerinteractive.starmaker/config.arm64_v8a-85839601.apk!lib/arm64-v8a/libturingpri_mini.so\n |-> obfuscator : Obfuscator-LLVM version unknown\n",
+          "recentChanges": "1. Melody guide optimized.<br>2. Party page display optimized.<br>3. Singing room effect optimized.<br>4. Visitor log for virtual look added.",
+          "version": "8.39.2",
           "androidVersion": "5.0",
           "developer": "STAR SHINE ENTERTAINMENT PTE. LTD."
         }

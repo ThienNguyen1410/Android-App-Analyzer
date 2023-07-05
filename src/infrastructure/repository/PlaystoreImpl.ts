@@ -3,7 +3,6 @@ import chalk from "chalk";
 import { COLORS } from "config/colors";
 import googlePlay, { IAppItem, IAppItemFullDetail } from "google-play-scraper";
 import ora from "ora";
-import { TermRepositoryImpl } from "./TermRepositoryImpl";
 
 export class PlayStoreImpl implements PlayStoreRepository {
   searchPackage(keyword: string): Promise<IAppItem[]> {
