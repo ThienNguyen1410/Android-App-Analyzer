@@ -191,16 +191,6 @@
         }
       },
       {
-        "com.microsoft.bing": {
-          "title": "Bing: Chat with AI & GPT-4",
-          "appId": "com.microsoft.bing",
-          "recentChanges": "1. Faster, more accurate, more capable. The new Bing runs on a next-generation OpenAI large language model. This new language model is more powerful than ChatGPT and customized for search.  <br><br>2. More relevant, timely, targeted results – all with improved safety. Microsoft Prometheus Model. Our proprietary technology – the Microsoft Prometheus Model – is a collection of capabilities that best leverages the power of OpenAI.",
-          "version": "VARY",
-          "androidVersion": "7.0",
-          "developer": "Microsoft Corporation"
-        }
-      },
-      {
         "com.peace.AiChat": {
           "title": "AI Chat",
           "appId": "com.peace.AiChat",
@@ -564,16 +554,6 @@
         }
       },
       {
-        "com.microsoft.bing": {
-          "title": "Bing: Chat with AI & GPT-4",
-          "appId": "com.microsoft.bing",
-          "recentChanges": "1. Faster, more accurate, more capable. The new Bing runs on a next-generation OpenAI large language model. This new language model is more powerful than ChatGPT and customized for search.  <br><br>2. More relevant, timely, targeted results – all with improved safety. Microsoft Prometheus Model. Our proprietary technology – the Microsoft Prometheus Model – is a collection of capabilities that best leverages the power of OpenAI.",
-          "version": "VARY",
-          "androidVersion": "7.0",
-          "developer": "Microsoft Corporation"
-        }
-      },
-      {
         "com.ai.polyverse.mirror": {
           "title": "AI Mirror: AI Art Photo Editor",
           "appId": "com.ai.polyverse.mirror",
@@ -582,19 +562,6 @@
           "version": "2.3.1",
           "androidVersion": "5.0",
           "developer": "POLYVERSE INC."
-        }
-      },
-      {
-        "com.starmakerinteractive.starmaker": {
-          "title": "StarMaker: Sing Karaoke Songs",
-          "appId": "com.starmakerinteractive.starmaker",
-          "framework": "React Native",
-          "gameEngine": "Unity",
-          "shield": "[*] /Users/Thien/Android-App-Analyzer/apks/com.starmakerinteractive.starmaker/config.arm64_v8a-85839601.apk!lib/arm64-v8a/libturingpri_mini.so\n |-> obfuscator : Obfuscator-LLVM version unknown\n",
-          "recentChanges": "1. Melody guide optimized.<br>2. Party page display optimized.<br>3. Singing room effect optimized.<br>4. Visitor log for virtual look added.",
-          "version": "8.39.2",
-          "androidVersion": "5.0",
-          "developer": "STAR SHINE ENTERTAINMENT PTE. LTD."
         }
       }
     ]
