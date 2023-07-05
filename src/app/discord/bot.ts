@@ -26,23 +26,29 @@ client.once("ready", () => {
     console.error(`Channel with ID '${CHANNEL_ID}' not found.`);
     return;
   }
+  termRepo.removeApks().then((isRemoved) => {
+    if (isRemoved) {
+      getAppInTarget.executeIOSTarget().catch((error) => console.log(error));
+      getAppInTarget.execute().catch((error) => console.log(error));
+    }
+  });
 
-  let job = new CronJob(
-    "0 8 * * *",
-    async function () {
-      const isRemoveApks = await termRepo.removeApks();
-      if (isRemoveApks) {
-        await getAppInTarget.executeIOSTarget();
-        await getAppInTarget.execute();
-      } else {
-        console.log("Disk full !");
-      }
-    },
-    null,
-    true,
-    "Asia/Ho_Chi_Minh"
-  );
-  job.start();
+  // let job = new CronJob(
+  //   "0 8 * * *",
+  //   async function () {
+  //     const isRemoveApks = await termRepo.removeApks();
+  //     if (isRemoveApks) {
+  //       await getAppInTarget.executeIOSTarget();
+  //       await getAppInTarget.execute();
+  //     } else {
+  //       console.log("Disk full !");
+  //     }
+  //   },
+  //   null,
+  //   true,
+  //   "Asia/Ho_Chi_Minh"
+  // );
+  // job.start();
 });
 
 client.on("interactionCreate", async (interaction) => {
