@@ -4,6 +4,7 @@ import * as ping from "@discord/commands/ping";
 import * as search from "@discord/commands/search";
 import * as add from "@app/discord/commands/add";
 import * as addAppStoreID from "@app/discord/commands/addAppStoreId";
+import * as searchIOS from "@app/discord/commands/searchIOS";
 import { discordCommand } from "./deploy-commands";
 import { GetAppInTarget } from "@app/usecases/discord/GetAppInTarget";
 import { PlayStoreImpl } from "@impl/PlaystoreImpl";
@@ -69,6 +70,9 @@ client.on("interactionCreate", async (interaction) => {
   }
   if (commandName === "add_ios") {
     addAppStoreID.execute(interaction);
+  }
+  if (commandName === "search_iOS") {
+    searchIOS.execute(interaction);
   }
 });
 

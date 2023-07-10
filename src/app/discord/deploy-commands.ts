@@ -4,8 +4,15 @@ import * as ping from "@discord/commands/ping";
 import * as search from "@discord/commands/search";
 import * as add from "@app/discord/commands/add";
 import * as addAppStoreID from "@app/discord/commands/addAppStoreId";
+import * as searchIOS from "@app/discord/commands/searchIOS";
 
-const commands = [ping.data, search.data, add.data, addAppStoreID.data];
+const commands = [
+  ping.data,
+  search.data,
+  searchIOS.data,
+  add.data,
+  addAppStoreID.data,
+];
 
 const rest = new REST({ version: "9" }).setToken(DISCORD.DISCORD_TOKEN);
 

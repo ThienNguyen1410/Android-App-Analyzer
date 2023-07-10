@@ -14,7 +14,16 @@
         }
       },
       {
-        "1476173971": {}
+        "1476173971": {
+          "id": 1476173971,
+          "appId": "vn.vng.uprace",
+          "title": "UpRace",
+          "url": "https://apps.apple.com/us/app/uprace/id1476173971?uo=4",
+          "version": "3.4.4",
+          "updated": "2023-06-29T04:02:34Z",
+          "releaseNotes": "- Implement club feature\n- Fixbugs",
+          "developer": "VNG CORPORATION"
+        }
       }
     ]
   }
