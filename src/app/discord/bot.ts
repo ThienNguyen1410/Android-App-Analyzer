@@ -71,7 +71,7 @@ client.on("interactionCreate", async (interaction) => {
   if (commandName === "add_ios") {
     addAppStoreID.execute(interaction);
   }
-  if (commandName === "search_iOS") {
+  if (commandName === "search_ios") {
     searchIOS.execute(interaction);
   }
 });
