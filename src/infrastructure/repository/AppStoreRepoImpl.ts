@@ -5,6 +5,7 @@ import { createRequire } from "module";
 import ora from "ora";
 
 const require = createRequire(import.meta.url);
+
 const store = require("app-store-scraper");
 
 export class AppStoreRepoImpl implements AppStoreRepository {
@@ -39,11 +40,32 @@ export class AppStoreRepoImpl implements AppStoreRepository {
       store
         .search({
           term: keyword,
+          country: "vn",
         })
         .then((appInfos: any) => {
           spinner.succeed(
             chalk.hex(COLORS.success)(`Search apps contains keyword success !`)
           );
+          resolve(appInfos);
+        })
+        .catch((error: any) => {
+          spinner.fail(chalk.hex(COLORS.error)(`Search apps error ${error} !`));
+          reject();
+        });
+    });
+  }
+
+  async searchAppByDevID(id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let spinner = ora(
+        chalk.hex(COLORS.running)(`Searching apps of developer ID : ${id}`)
+      ).start();
+      store
+        .developer({
+          devId: id,
+        })
+        .then((appInfos: any) => {
+          spinner.succeed(chalk.hex(COLORS.success)(`Search apps success !`));
           resolve(appInfos);
         })
         .catch((error: any) => {

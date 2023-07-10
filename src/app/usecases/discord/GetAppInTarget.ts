@@ -47,20 +47,20 @@ export class GetAppInTarget {
             typeof value === "object" &&
             Object.keys(value as Object).length === 0;
           if (packageEmpty) {
-            app[key] = appInfo;
+            app[key] = { ...appInfo };
             updatedAppInfos.push(appInfo);
             writeJson(CONFIG.targetPath, targetJson);
-            await discordRepository.sendMessageToServer(appInfo);
+            // await discordRepository.sendMessageToServer(appInfo);
             continue;
           }
           const isAndroidVersionUpdate = app[key].version != appInfo.version;
           if (isAndroidVersionUpdate) {
             console.log("New Version ", app[key].version);
             console.log("Previous Version ", appInfo.version);
-            app[key] = appInfo;
+            app[key] = { ...appInfo };
             writeJson(CONFIG.targetPath, targetJson);
             updatedAppInfos.push(appInfo);
-            await discordRepository.sendMessageToServer(appInfo);
+            // await discordRepository.sendMessageToServer(appInfo);
           }
         }
       } catch (error) {
@@ -79,34 +79,35 @@ export class GetAppInTarget {
     for (let app of iOSTarget.appInfo.packages) {
       try {
         for (let [key, value] of Object.entries(app)) {
-          const iOSApp = await appStoreRepo.searchAppById(key);
+          const iOSAppInfo = await appStoreRepo.searchAppById(key);
           const appInfo: iOSApp = {
-            id: iOSApp.id,
-            appId: iOSApp.appId,
-            title: iOSApp.title,
-            url: iOSApp.url,
-            version: iOSApp.version,
-            updated: iOSApp.updated,
-            releaseNotes: iOSApp.releaseNotes,
-            developer: iOSApp.developer,
+            id: iOSAppInfo.id,
+            appId: iOSAppInfo.appId,
+            title: iOSAppInfo.title,
+            url: iOSAppInfo.url,
+            version: iOSAppInfo.version,
+            updated: iOSAppInfo.updated,
+            releaseNotes: iOSAppInfo.releaseNotes,
+            developer: iOSAppInfo.developer,
           };
           const isPackageEmpty =
             typeof value === "object" &&
             Object.keys(value as Object).length === 0;
           if (isPackageEmpty) {
-            app[key] = appInfo;
+            app[key] = { ...appInfo };
             updatedIOSAppInfos.push(appInfo);
             writeJson(CONFIG.targetIOSPath, iOSTarget);
-            await discordRepository.sendIOSMessageToServer(appInfo);
+            // await discordRepository.sendIOSMessageToServer(appInfo);
             continue;
           }
           const isIOSVersionUpdate = app[key].version !== appInfo.version;
           if (isIOSVersionUpdate) {
-            console.log("New Version ", app[key].version);
-            console.log("Previous Version ", appInfo.version);
+            app[key] = { ...appInfo };
+            console.log("OLD VERSION : ", app[key]);
+            console.log("NEW VERSION : ", appInfo);
             updatedIOSAppInfos.push(appInfo);
             writeJson(CONFIG.targetIOSPath, iOSTarget);
-            await discordRepository.sendIOSMessageToServer(appInfo);
+            // await discordRepository.sendIOSMessageToServer(appInfo);
           }
         }
       } catch (e) {

@@ -7,23 +7,14 @@
           "appId": "vn.com.vng.zalopay",
           "title": "ZaloPay – Thanh toán trong 2s",
           "url": "https://apps.apple.com/us/app/zalopay-thanh-to%C3%A1n-trong-2s/id1112407590?uo=4",
-          "version": "8.19.0",
-          "updated": "2023-06-30T09:53:48Z",
-          "releaseNotes": "Bản cập nhật 8.19.0 có gì mới?\n\n- Nâng cấp và cải thiện hiệu năng\nZaloPay tiếp tục được nâng cấp và hoàn thiện các tính năng để mang lại trải nghiệm tốt nhất.",
+          "version": "8.20.0",
+          "updated": "2023-07-06T00:30:57Z",
+          "releaseNotes": "Bản cập nhật 8.20.0 có gì mới?\n\n- Nâng cấp và cải thiện hiệu năng\nZaloPay tiếp tục được nâng cấp và hoàn thiện các tính năng để mang lại trải nghiệm tốt nhất.",
           "developer": "ZION JOINT STOCK COMPANY"
         }
       },
       {
-        "398453277": {
-          "id": 468961378,
-          "appId": "vn.com.vng.zingme",
-          "title": "Zing Me - MXH giải trí miễn phí trên mobile - Tìm bạn chat mọi lúc",
-          "url": "https://apps.apple.com/us/app/zing-me-mxh-gi%E1%BA%A3i-tr%C3%AD-mi%E1%BB%85n-ph%C3%AD-tr%C3%AAn-mobile-t%C3%ACm-b%E1%BA%A1n-chat-m%E1%BB%8Di-l%C3%BAc/id468961378?uo=4",
-          "version": "4.6",
-          "updated": "2015-03-24T13:31:25Z",
-          "releaseNotes": "Tăng hiệu năng và sửa lỗi của ứng dụng",
-          "developer": "VNG CORPORATION"
-        }
+        "1476173971": {}
       }
     ]
   }
