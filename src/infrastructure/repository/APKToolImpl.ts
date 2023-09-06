@@ -37,9 +37,22 @@ export class APKToolImpl implements IAPKTools {
   }
 
   async decompile(apkPath: string, outDir: string): Promise<string> {
-    const [path, _] = await callAsync(
-      `apktool d --no-res ${apkPath} -o ${outDir}`
-    );
-    return path;
+    let spinner = ora(
+      chalk.hex(COLORS.running)("Decompiling") + ` apk in folder : ${apkPath}`
+    ).start();
+    try {
+      const [path, _] = await callAsync(
+        `apktool d -f --no-res ${apkPath} -o ${outDir}`
+      );
+
+      spinner.succeed(
+        chalk.hex(COLORS.success)("Decompiled") + ` in folder ${outDir}`
+      );
+
+      return path;
+    } catch (error) {
+      spinner.fail(`Error when decompile ${error}`);
+      return "";
+    }
   }
 }
