@@ -9,7 +9,7 @@ export class TermRepositoryImpl implements ITerm {
     let spinner = ora({ text: "Start list file" }).start();
     try {
       const [output, _] = await callAsync(`find ${path} -type f`);
-      spinner.succeed(chalk.hex(COLORS.success)(`Listed file : ${output} `));
+      spinner.succeed(chalk.hex(COLORS.success)("Listed File"));
       return output;
     } catch (err) {
       spinner.fail(chalk.hex(COLORS.error)("File not exist") + ` ${path}`);
@@ -65,12 +65,12 @@ export class TermRepositoryImpl implements ITerm {
     try {
       const [output, _] = await callAsync(`grep -r -o -l ${key} ${dir}`);
       spinner.succeed(
-        chalk.hex(COLORS.success)("Key") + ` ${key} exsited in ${dir}!`
+        chalk.hex(COLORS.running)("Key") + ` ${key} exsited in ${dir}!`
       );
       return output;
     } catch (error) {
       spinner.fail(
-        chalk.hex(COLORS.success)("Key") + ` ${key} not exist in folder ${dir}`
+        chalk.hex(COLORS.error)("Key") + ` ${key} not exist in folder ${dir}`
       );
       return undefined;
     }

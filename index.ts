@@ -23,7 +23,7 @@ const raccoon = new RaccoonRepositoryImpl();
 const termRepo = new TermRepositoryImpl();
 const apktoolRepo = new APKToolImpl();
 
-const searchPackage = () => {
+const searchPackage = async () => {
   if (keyword != undefined) {
     googlePlay
       .search({ term: keyword, country: "vn" })
@@ -89,132 +89,92 @@ const searchPackage = () => {
   }
   if (category != undefined) {
     var counter1 = 1;
-    var counter2 = 1;
-    googlePlay
-      .list({
-        category: category as any,
-        collection: googlePlay.collection.TOP_FREE,
-        country: "vn",
-      })
-      .then((appItems) =>
-        appItems.forEach((appItem) => {
-          console.log(
-            ` TOP_FREE | ${counter1} | ${appItem.appId} | ${appItem.title}`
+    const appItems = await googlePlay.list({
+      category: category as any,
+      collection: googlePlay.collection.TOP_FREE,
+      country: "vn",
+    });
+    for (let appItem of appItems) {
+      console.log(`${counter1} | ${appItem.appId} | ${appItem.title}`);
+      counter1++;
+      if (counter1 >= 49) {
+        const appPath = await raccoon.execute(appItem.appId);
+        if (appPath) {
+          const path = await termRepo.listFile(appPath);
+          const paths = path.trim().split("\n");
+          //base apk
+          await apktoolRepo.decompileNoRes(paths[0], appPath + "/source/");
+          //arm
+          await apktoolRepo.decompileNoRes(paths[1], appPath + "/arm/");
+          let searchResult = await termRepo.search(
+            "libtrustvision",
+            appPath + "/arm/"
           );
-          raccoon
-            .execute(appItem.appId)
-            .then((appPath) => {
-              console.log("PATH : ", appPath);
-              if (appPath) {
-                termRepo.listFile(appPath).then((path) => {
-                  const paths = path.trim().split("\n");
-                  console.log("PATHS : ", paths);
-                  paths.forEach((apk) => {
-                    console.log("APK : ", apk);
-                    apktoolRepo
-                      .decompile(apk, appPath + "/source/")
-                      .then((decompilePath) => {
-                        termRepo
-                          .search("libtrustvision-lib.so", appPath + "/source/")
-                          .then((output) =>
-                            console.log("Trusting Social Found in : ", output)
-                          )
-                          .catch((err) => console.log(err));
-                        termRepo
-                          .search("libtrueconfig.so", appPath + "/source/")
-                          .then((output) => {
-                            console.log(
-                              "DECOMPIED PATH : ",
-                              appPath + "/source/"
-                            );
-                            console.log("TRUEID Found in : ", output);
-                          })
-                          .catch((err) => console.log(err));
-                        termRepo
-                          .search(
-                            "https://apig.idcheck.xplat.online/",
-                            appPath + "/source/"
-                          )
-                          .then((output) =>
-                            console.log("FPTID CHECK FOUND IN : ", output)
-                          );
-                      })
-                      .catch((err) => console.log(err));
-                  });
-                });
-              }
-            })
-            .catch((error) => console.log("ERROR : ", error));
-        })
-      );
-    googlePlay
-      .list({
-        category: category as any,
-        collection: googlePlay.collection.GROSSING,
-        country: "vn",
-      })
-      .then((appItems) =>
-        appItems.forEach((appItem) => {
-          raccoon
-            .execute(appItem.appId)
-            .then((appPath) => {
-              console.log("PATH : ", appPath);
-              if (appPath) {
-                termRepo.listFile(appPath).then((path) => {
-                  const paths = path.trim().split("\n");
-                  console.log("PATHS : ", paths);
-                  paths.forEach((apk) => {
-                    console.log("APK : ", apk);
-                    apktoolRepo
-                      .decompile(apk, appPath + "/source/")
-                      .then((decompilePath) => {
-                        termRepo
-                          .search("libtrustvision-lib.so", appPath + "/source/")
-                          .then((output) =>
-                            console.log("Trusting Social Found in : ", output)
-                          )
-                          .catch((err) => console.log(err));
-                        termRepo
-                          .search("libtrueconfig.so", appPath + "/source/")
-                          .then((output) => {
-                            console.log(
-                              "DECOMPIED PATH : ",
-                              appPath + "/source/"
-                            );
-                            console.log("TRUEID Found in : ", output);
-                          })
-                          .catch((err) => console.log(err));
-                        termRepo
-                          .search(
-                            "https://apig.idcheck.xplat.online/",
-                            appPath + "/source/"
-                          )
-                          .then((output) =>
-                            console.log("FPTID CHECK FOUND IN : ", output)
-                          );
-                      })
-                      .catch((err) => console.log(err));
-                  });
-                });
-              }
-            })
-            .catch((error) => console.log("ERROR : ", error));
-        })
-      )
-      .catch((error) => console.log("Error get appItems GROSSING", error));
-    // googlePlay
-    //   .list({
-    //     category: category as any,
-    //     collection: googlePlay.collection.TOP_PAID,
-    //     country: "vn",
-    //   })
-    //   .then((appItems) =>
-    //     appItems.forEach((appItem) =>
-    //       console.log(` TOP_PAID | ${appItem.appId} | ${appItem.title}`)
-    //     )
-    //   )
-    //   .catch((error) => console.log(error));
+          if (searchResult) {
+            console.log("Trusting Social Found in : ", searchResult);
+          }
+          searchResult = await termRepo.search(
+            "libtrueconfig",
+            appPath + "/arm/"
+          );
+          if (searchResult) {
+            console.log("True ID found in : ", searchResult);
+          }
+          searchResult = await termRepo.search(
+            "https://apig.idcheck.xplat.online/",
+            appPath + "/source/"
+          );
+          if (searchResult) {
+            console.log("FPT ID CHECK Found in : ", appPath + "/source/");
+          }
+        }
+      }
+    }
+  }
+  if (category != undefined) {
+    var counter2 = 1;
+    const appItems = await googlePlay.list({
+      category: category as any,
+      collection: googlePlay.collection.GROSSING,
+      country: "vn",
+    });
+    for (let appItem of appItems) {
+      console.log(`${counter2} | ${appItem.appId} | ${appItem.title}`);
+      counter2++;
+      const appPath = await raccoon.execute(appItem.appId);
+      if (appPath) {
+        const path = await termRepo.listFile(appPath);
+        const paths = path.trim().split("\n");
+        //base apk
+        await apktoolRepo.decompileNoRes(paths[0], appPath + "/source/");
+        //arm
+        await apktoolRepo.decompileNoRes(paths[1], appPath + "/arm/");
+        let searchResult = await termRepo.search(
+          "libtrustvision",
+          appPath + "/arm/"
+        );
+        if (searchResult) {
+          console.log("Trusting Social Found in : ", searchResult);
+        }
+        searchResult = await termRepo.search(
+          "libtrueconfig",
+          appPath + "/arm/"
+        );
+        if (searchResult) {
+          console.log("True ID found in : ", searchResult);
+        }
+        searchResult = await termRepo.search(
+          "https://apig.idcheck.xplat.online/",
+          appPath + "/source/"
+        );
+        if (searchResult) {
+          console.log("FPT ID CHECK Found in : ", appPath + "/source/");
+        }
+      }
+    }
   }
 };
 
-searchPackage();
+searchPackage()
+  .then()
+  .catch((error) => console.log(error));
