@@ -96,8 +96,8 @@ const searchPackage = async () => {
     });
     for (let appItem of appItems) {
       console.log(`${counter1} | ${appItem.appId} | ${appItem.title}`);
-      counter1++;
-      if (counter1 >= 49) {
+      if (counter1 >= 1) {
+        counter1++;
         const appPath = await raccoon.execute(appItem.appId);
         if (appPath) {
           const path = await termRepo.listFile(appPath);
@@ -106,7 +106,15 @@ const searchPackage = async () => {
           await apktoolRepo.decompileNoRes(paths[0], appPath + "/source/");
           //arm
           await apktoolRepo.decompileNoRes(paths[1], appPath + "/arm/");
+
           let searchResult = await termRepo.search(
+            "libtrustvision",
+            appPath + "/source/"
+          );
+          if (searchResult) {
+            console.log("Trusting Social Found in : ", searchResult);
+          }
+          searchResult = await termRepo.search(
             "libtrustvision",
             appPath + "/arm/"
           );
@@ -114,9 +122,24 @@ const searchPackage = async () => {
             console.log("Trusting Social Found in : ", searchResult);
           }
           searchResult = await termRepo.search(
-            "libtrueconfig",
+            "trustingsocial",
+            appPath + "/source/"
+          );
+          if (searchResult) {
+            console.log("Trusting Social Found in : ", searchResult);
+          }
+          searchResult = await termRepo.search(
+            "trustingsocial",
             appPath + "/arm/"
           );
+          if (searchResult) {
+            console.log("Trusting Social Found in : ", searchResult);
+          }
+          searchResult = await termRepo.search("trueid", appPath + "/source/");
+          if (searchResult) {
+            console.log("True ID found in : ", searchResult);
+          }
+          searchResult = await termRepo.search("trueid", appPath + "/arm/");
           if (searchResult) {
             console.log("True ID found in : ", searchResult);
           }
@@ -127,48 +150,27 @@ const searchPackage = async () => {
           if (searchResult) {
             console.log("FPT ID CHECK Found in : ", appPath + "/source/");
           }
-        }
-      }
-    }
-  }
-  if (category != undefined) {
-    var counter2 = 1;
-    const appItems = await googlePlay.list({
-      category: category as any,
-      collection: googlePlay.collection.GROSSING,
-      country: "vn",
-    });
-    for (let appItem of appItems) {
-      console.log(`${counter2} | ${appItem.appId} | ${appItem.title}`);
-      counter2++;
-      const appPath = await raccoon.execute(appItem.appId);
-      if (appPath) {
-        const path = await termRepo.listFile(appPath);
-        const paths = path.trim().split("\n");
-        //base apk
-        await apktoolRepo.decompileNoRes(paths[0], appPath + "/source/");
-        //arm
-        await apktoolRepo.decompileNoRes(paths[1], appPath + "/arm/");
-        let searchResult = await termRepo.search(
-          "libtrustvision",
-          appPath + "/arm/"
-        );
-        if (searchResult) {
-          console.log("Trusting Social Found in : ", searchResult);
-        }
-        searchResult = await termRepo.search(
-          "libtrueconfig",
-          appPath + "/arm/"
-        );
-        if (searchResult) {
-          console.log("True ID found in : ", searchResult);
-        }
-        searchResult = await termRepo.search(
-          "https://apig.idcheck.xplat.online/",
-          appPath + "/source/"
-        );
-        if (searchResult) {
-          console.log("FPT ID CHECK Found in : ", appPath + "/source/");
+          searchResult = await termRepo.search(
+            "https://apig.idcheck.xplat.online/",
+            appPath + "/arm/"
+          );
+          if (searchResult) {
+            console.log("FPT ID CHECK Found in : ", appPath + "/arm/");
+          }
+          searchResult = await termRepo.search(
+            "libface3d-native",
+            appPath + "/source/"
+          );
+          if (searchResult) {
+            console.log("VNPT EKYC Found in : ", appPath + "/source/");
+          }
+          searchResult = await termRepo.search(
+            "libface3d-native",
+            appPath + "/arm/"
+          );
+          if (searchResult) {
+            console.log("VNPT EKYC found in : ", appPath + "/arm/");
+          }
         }
       }
     }

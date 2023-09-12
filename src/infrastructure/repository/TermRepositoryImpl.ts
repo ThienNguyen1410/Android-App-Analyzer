@@ -58,20 +58,16 @@ export class TermRepositoryImpl implements ITerm {
   }
 
   async search(key: string, dir: string): Promise<string | undefined> {
-    let spinner = ora(
-      chalk.hex(COLORS.running)("Searching :") + " " + `${key} in folder ${dir}`
-    ).start();
+    let spinner = ora(chalk.hex(COLORS.running)("Searching... ")).start();
 
     try {
-      const [output, _] = await callAsync(`grep -r -o -l ${key} ${dir}`);
-      spinner.succeed(
-        chalk.hex(COLORS.running)("Key") + ` ${key} exsited in ${dir}!`
-      );
+      const [output, _] = await callAsync(`grep -r ${key} ${dir}`);
+      spinner.succeed(chalk.hex(COLORS.error)("Key") + ` ${key} exsited !`);
       return output;
     } catch (error) {
-      spinner.fail(
-        chalk.hex(COLORS.error)("Key") + ` ${key} not exist in folder ${dir}`
-      );
+      // spinner.fail(
+      //   chalk.hex(COLORS.error)("Key") + ` ${key} not exist in folder ${dir}`
+      // );
       return undefined;
     }
   }
